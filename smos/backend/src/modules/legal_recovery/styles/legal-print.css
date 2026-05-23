@@ -1,0 +1,130 @@
+/**
+ * LEGAL-PRINT.CSS
+ * Strictly scoped stylesheet for Small Claims Procedure (SCP) document generation.
+ * Optimized for high-fidelity PDF output using formal serif typography.
+ */
+
+@media print, screen {
+    .legal-print-container {
+        font-family: "Times New Roman", Georgia, serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: #000;
+        background: #fff;
+        margin: 0;
+        padding: 40px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Markdown-style table borders */
+    .legal-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        page-break-inside: avoid;
+    }
+
+    .legal-table th, 
+    .legal-table td {
+        border: 1px solid #000;
+        padding: 10px 12px;
+        text-align: left;
+    }
+
+    .legal-table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 10pt;
+    }
+
+    /* Bold black subject bar (Memo Subject Line) */
+    .subject-bar {
+        border-left: 12px solid #000;
+        padding: 12px 20px;
+        background-color: #f9f9f9;
+        font-weight: 800;
+        margin: 25px 0;
+        font-size: 13pt;
+        text-transform: uppercase;
+        display: block;
+    }
+
+    .legal-header {
+        text-align: center;
+        margin-bottom: 40px;
+        border-bottom: 2px solid #000;
+        padding-bottom: 20px;
+    }
+
+    .legal-header h1 {
+        font-size: 18pt;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    .legal-section {
+        margin-top: 30px;
+    }
+
+    .legal-section-title {
+        font-weight: bold;
+        text-decoration: underline;
+        margin-bottom: 15px;
+        font-size: 12pt;
+    }
+
+    /* Signature Grid - 3 Columns */
+    .signature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 60px;
+        page-break-inside: avoid;
+    }
+
+    .signature-box {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .signature-line {
+        width: 100%;
+        border-top: 1px solid #000;
+        margin-top: 45px;
+        margin-bottom: 10px;
+    }
+
+    .signature-info {
+        font-size: 10pt;
+        line-height: 1.4;
+    }
+
+    .memo-info {
+        margin-bottom: 30px;
+    }
+
+    .memo-row {
+        margin-bottom: 4px;
+    }
+
+    .memo-row strong {
+        display: inline-block;
+        width: 120px;
+    }
+
+    .legal-footer {
+        margin-top: 50px;
+        font-size: 10pt;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+    }
+
+    /* Utility for force break */
+    .page-break {
+        page-break-before: always;
+    }
+}

@@ -1,0 +1,21 @@
+# Dependency directories
+**/node_modules/
+**/dist/
+
+# Log files
+*.log
+**/backend.log
+
+# Environment variables (sensitive credentials)
+**/.env
+**/.env.production
+**/.env.local
+**/.env.development
+**/.env.staging
+
+# Temporary files
+**/scratch/
+.vscode/
+Thumbs.db
+Desktop.ini
+desktop.ini

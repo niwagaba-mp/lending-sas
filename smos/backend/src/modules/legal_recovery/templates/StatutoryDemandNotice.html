@@ -1,0 +1,69 @@
+<div class="legal-print-container">
+    <div style="text-align: right; font-size: 10pt; font-weight: bold; margin-bottom: 20px;">
+        FROM THE OFFICE OF MR. NIWAGABA FELEX
+    </div>
+
+    <div class="memo-info" style="border-bottom: 1px solid #000; padding-bottom: 20px;">
+        <div style="font-size: 9pt; color: #444;">{{Creditor_Address}} | {{Creditor_Contact_Number}} | {{Creditor_Email}}</div>
+        <div style="font-size: 16pt; font-weight: 800; margin-top: 15px; text-transform: uppercase;">OFFICIAL MEMORANDUM & STATUTORY NOTICE</div>
+    </div>
+
+    <div class="memo-info" style="margin-top: 25px;">
+        <div class="memo-row"><strong>TO:</strong> {{Borrower_Name}}</div>
+        <div class="memo-row"><strong>REGISTERED ADDRESS:</strong> {{Borrower_Address}}</div>
+        <div class="memo-row"><strong>DATE:</strong> {{Generation_Date}}</div>
+        <div class="memo-row"><strong>FILE REF:</strong> {{Notice_Ref_Number}}</div>
+    </div>
+
+    <div class="subject-bar">
+        SUBJECT: 14-DAY STATUTORY NOTICE OF DEMAND – UGX {{Total_Amount}}
+    </div>
+
+    <div class="legal-section">
+        <p>Dear {{Borrower_Name}},</p>
+        
+        <p>
+            This official memorandum fulfills the statutory requirement for a notice of demand under the Judicature (Small Claims Procedure) Rules of Uganda.
+        </p>
+
+        <p>
+            A conclusive internal audit of your accounts confirms a delinquent and outstanding Total Indebtedness of <strong>UGX {{Total_Amount}}</strong>. This balance is directly associated with your defaulted credit facility and the Tripartite Recovery Commitment on file (Ref: {{Account_Ref_Number}}).
+        </p>
+
+        <p>
+            You are legally required, within <strong>fourteen (14) days</strong> from the service of this notice, to pay or settle the debt mentioned above in full.
+        </p>
+    </div>
+
+    <div class="legal-section">
+        <div class="legal-section-title">LEGAL CONSEQUENCES OF DEFAULT:</div>
+        <ul>
+            <li>If you settle the debt within this 14-day window, a receipt acknowledging full settlement will be issued, and the file closed.</li>
+            <li>If you fail to comply with this statutory demand by <strong>{{Deadline_Time}} on {{Deadline_Date}}</strong>, I will immediately file a formal claim against you and your Guarantor, <strong>{{Guarantor_Name}}</strong>, under the Small Claims Procedure in the Magistrate's Court.</li>
+        </ul>
+        
+        <p>
+            This action will be instituted to obtain a binding court decree for the principal amount claimed, together with all permissible expenses and court costs, resulting in the immediate attachment of your assets. <strong>No further warnings will be issued.</strong>
+        </p>
+    </div>
+
+    <div class="legal-section" style="background-color: #f2f2f2; padding: 20px; border: 1px solid #000;">
+        <p>To halt these legal proceedings, immediate payment must be remitted directly to:</p>
+        <p style="margin-left: 20px;">
+            <strong>Account / Mobile Money Name:</strong> {{Payment_Account_Name}}<br>
+            <strong>Account / Mobile Money Number:</strong> {{Payment_Details}}
+        </p>
+        <p>Please direct all verified proofs of payment to this office immediately upon remittance.</p>
+    </div>
+
+    <div class="signature-grid" style="margin-top: 80px;">
+        <div class="signature-box" style="grid-column: span 1;">
+            <div style="font-weight: bold;">Authorized By:</div>
+            <div class="signature-line" style="margin-top: 50px;"></div>
+            <div class="signature-info">
+                <strong>Mr. Niwagaba Felex</strong><br>
+                Creditor / Plaintiff
+            </div>
+        </div>
+    </div>
+</div>

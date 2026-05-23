@@ -1,0 +1,22 @@
+# Stage 1: Build static assets
+FROM node:18-alpine AS builder
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Copy source code and build
+COPY . .
+ENV VITE_API_URL=/api
+RUN npm run build
+
+# Stage 2: Runtime image to populate the shared Nginx volume mount
+FROM alpine:latest
+WORKDIR /app
+
+# Copy built static files from builder stage
+COPY --from=builder /app/dist /app/dist
+
+# Copy assets to the shared volume directory on container startup
+CMD ["sh", "-c", "cp -rp /app/dist/. /app/build/ && echo 'Frontend static assets copied to volume.'"]

@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: smos-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: smos_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - smos_pgdata:/var/lib/postgresql/data
+      # Automatically run the schema and seed scripts on first startup
+      - ./database/001_schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./database/002_seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
+    restart: unless-stopped
+
+  # Node.js Backend API
+  backend:
+    build:
+      context: ./backend
+    container_name: smos-backend
+    environment:
+      - PORT=5000
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@db:5432/smos_db
+      - JWT_SECRET=smos_super_secret_jwt_key_change_in_production
+      - JWT_REFRESH_SECRET=smos_refresh_secret_change_in_production
+      - FRONTEND_URL=http://localhost:5173
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+    container_name: smos-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  smos_pgdata:

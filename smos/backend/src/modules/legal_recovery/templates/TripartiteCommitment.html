@@ -1,0 +1,100 @@
+<div class="legal-print-container">
+    <div class="legal-header">
+        <h1>TRIPARTITE RECOVERY COMMITMENT</h1>
+        <div style="font-size: 10pt; margin-top: 5px;">Jurisdiction: Judicature (Small Claims Procedure) Rules, Uganda</div>
+    </div>
+
+    <div class="memo-info">
+        <div class="memo-row"><strong>Date of Generation:</strong> {{Generation_Date}}</div>
+        <div class="memo-row"><strong>System Reference:</strong> {{Agreement_Ref_Number}}</div>
+    </div>
+
+    <p>
+        This Tripartite Recovery Commitment ("Agreement") is formally entered into on the date specified above by and between the following parties:
+    </p>
+
+    <div class="legal-section">
+        <p><strong>1. The Borrower:</strong> {{Borrower_Name}}, residing at {{Borrower_Address}}, Phone: {{Borrower_Phone}} (Hereinafter referred to as the "Borrower").</p>
+        <p><strong>2. The Guarantor:</strong> {{Guarantor_Name}}, residing at {{Guarantor_Address}}, Phone: {{Guarantor_Phone}} (Hereinafter referred to as the "Guarantor").</p>
+        <p><strong>3. The Creditor:</strong> Mr. Niwagaba Felex, of {{Creditor_Address}} (Hereinafter referred to as the "Creditor").</p>
+    </div>
+
+    <div class="legal-section">
+        <div class="legal-section-title">1. ACKNOWLEDGEMENT OF LIQUIDATED DEBT</div>
+        <p>
+            The Borrower and Guarantor explicitly acknowledge and agree that the Borrower is currently indebted to the Creditor. The verified breakdown of this outstanding facility is detailed below:
+        </p>
+
+        <table class="legal-table">
+            <thead>
+                <tr>
+                    <th>Account / Facility Reference</th>
+                    <th>Description of Defaulted Facility</th>
+                    <th>Total Indebtedness (UGX)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{Ref_Number_1}}</td>
+                    <td>{{Facility_Description_1}}</td>
+                    <td>{{Amount_1}}</td>
+                </tr>
+                <tr>
+                    <td>{{Ref_Number_2}}</td>
+                    <td>{{Facility_Description_2}}</td>
+                    <td>{{Amount_2}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="2" style="text-align: right;">TOTAL VERIFIED OUTSTANDING BALANCE</th>
+                    <th>{{Total_Indebtedness}}</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="legal-section">
+        <div class="legal-section-title">2. BINDING COMMITMENT</div>
+        <p>
+            The Borrower and Guarantor hereby commit to jointly and severally liquidate the verified Total Indebtedness of <strong>UGX {{Total_Indebtedness}}</strong> on or before <strong>{{Deadline_Date}}</strong>. The parties acknowledge that failure to clear this balance will result in immediate legal action under the Small Claims Procedure, leading to the attachment of assets.
+        </p>
+    </div>
+
+    <div class="legal-section">
+        <div class="legal-section-title">3. SIGNATURE DECLARATION</div>
+        <p>
+            By signing below, all parties confirm the accuracy of the KYC demographic data provided and agree to the binding terms and figures stated within this Commitment.
+        </p>
+
+        <div class="signature-grid">
+            <div class="signature-box">
+                <div style="font-weight: bold;">The Borrower</div>
+                <div class="signature-line"></div>
+                <div class="signature-info">
+                    Name: {{Borrower_Name}}<br>
+                    KYC NIN: {{Borrower_NIN}}<br>
+                    Date: {{Date_Signed}}
+                </div>
+            </div>
+            <div class="signature-box">
+                <div style="font-weight: bold;">The Guarantor</div>
+                <div class="signature-line"></div>
+                <div class="signature-info">
+                    Name: {{Guarantor_Name}}<br>
+                    KYC NIN: {{Guarantor_NIN}}<br>
+                    Date: {{Date_Signed}}
+                </div>
+            </div>
+            <div class="signature-box">
+                <div style="font-weight: bold;">The Creditor</div>
+                <div class="signature-line"></div>
+                <div class="signature-info">
+                    Name: Mr. Niwagaba Felex<br>
+                    KYC NIN: {{Felex_NIN}}<br>
+                    Date: {{Date_Signed}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

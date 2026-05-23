@@ -1,0 +1,63 @@
+name: SMOS Continuous Integration & Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-validate:
+    name: Build Verification & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+
+      - name: Validate Backend code
+        run: |
+          cd backend
+          npm ci
+          # Run tests if Jest suites are configured
+          # npm test
+
+      - name: Validate Frontend Build
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+
+  deploy-to-production:
+    name: Production SSH Deploy
+    needs: build-and-validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PROD_SERVER_IP }}
+          username: ${{ secrets.PROD_SERVER_USER }}
+          key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PROD_SSH_PORT || 22 }}
+          script: |
+            echo "🚀 Starting SMOS deployment on production server..."
+            cd /var/www/smos || { echo "❌ Deployment path not found"; exit 1; }
+            
+            echo "📥 Fetching latest changes from Git..."
+            git pull origin main
+            
+            echo "🐳 Rebuilding and starting production containers..."
+            docker compose -f docker-compose.prod.yml up -d --build
+            
+            echo "🧹 Pruning old unused Docker images..."
+            docker image prune -f
+            
+            echo "✅ SMOS Deployment complete and active!"

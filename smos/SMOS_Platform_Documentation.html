@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMOS — Smart Microfinance Operating System — Platform Documentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --primary: #1a56db;
+    --primary-light: #e8edfb;
+    --accent: #059669;
+    --danger: #dc2626;
+    --warning: #d97706;
+    --bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --header-bg: #0f172a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    font-size: 11pt;
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  @media print {
+    body { font-size: 10pt; line-height: 1.5; }
+    .cover-page { page-break-after: always; }
+    .toc { page-break-after: always; }
+    h2 { page-break-before: always; }
+    h2:first-of-type { page-break-before: avoid; }
+    table { page-break-inside: avoid; }
+    .no-print { display: none !important; }
+  }
+
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+
+  .container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  /* Cover Page */
+  .cover-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    text-align: center;
+    padding: 80px 40px;
+  }
+
+  .cover-logo {
+    font-size: 64px;
+    margin-bottom: 16px;
+  }
+
+  .cover-title {
+    font-size: 36pt;
+    font-weight: 800;
+    color: var(--header-bg);
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+
+  .cover-subtitle {
+    font-size: 14pt;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-bottom: 48px;
+  }
+
+  .cover-badge {
+    display: inline-block;
+    padding: 10px 28px;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    font-size: 11pt;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 48px;
+  }
+
+  .cover-meta {
+    font-size: 10pt;
+    color: var(--text-muted);
+    line-height: 2;
+  }
+
+  .cover-meta strong { color: var(--text); }
+
+  /* Table of Contents */
+  .toc {
+    padding: 40px;
+    max-width: 850px;
+    margin: 0 auto;
+  }
+
+  .toc h2 {
+    font-size: 20pt;
+    margin-bottom: 24px;
+    color: var(--header-bg);
+    border: none;
+    padding: 0;
+    page-break-before: avoid;
+  }
+
+  .toc-list {
+    list-style: none;
+    counter-reset: toc;
+  }
+
+  .toc-list li {
+    padding: 10px 0;
+    border-bottom: 1px dotted var(--border);
+    font-size: 11pt;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .toc-list li span:first-child { font-weight: 600; color: var(--text); }
+  .toc-list li span:last-child { color: var(--text-muted); font-weight: 400; }
+
+  /* Headings */
+  h1 {
+    font-size: 24pt;
+    font-weight: 800;
+    color: var(--header-bg);
+    margin: 48px 0 16px;
+    letter-spacing: -0.5px;
+  }
+
+  h2 {
+    font-size: 18pt;
+    font-weight: 700;
+    color: var(--header-bg);
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--primary);
+  }
+
+  h3 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 32px 0 10px;
+  }
+
+  h4 {
+    font-size: 11pt;
+    font-weight: 600;
+    color: var(--text);
+    margin: 20px 0 8px;
+  }
+
+  p { margin-bottom: 12px; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 10pt;
+  }
+
+  thead th {
+    background: var(--header-bg);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  tbody td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) { background: #f8fafc; }
+  tbody tr:hover { background: var(--primary-light); }
+
+  /* Code blocks */
+  code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 9.5pt;
+    color: #be185d;
+  }
+
+  pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 9pt;
+    line-height: 1.6;
+    margin: 16px 0 24px;
+  }
+
+  pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin: 8px 0 16px 24px;
+  }
+
+  li { margin-bottom: 4px; }
+
+  /* Callouts */
+  .callout {
+    padding: 14px 18px;
+    border-left: 4px solid;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 10pt;
+  }
+
+  .callout-info { border-color: var(--primary); background: #eff6ff; }
+  .callout-success { border-color: var(--accent); background: #ecfdf5; }
+  .callout-warning { border-color: var(--warning); background: #fffbeb; }
+
+  .callout strong { display: block; margin-bottom: 4px; }
+
+  /* Divider */
+  hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+  }
+
+  /* Diagram placeholder */
+  .diagram {
+    background: #f8fafc;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0 24px;
+    text-align: center;
+    font-size: 10pt;
+    color: var(--text-muted);
+  }
+
+  .diagram pre {
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+    font-size: 9pt;
+    padding: 12px;
+  }
+
+  /* Status flow */
+  .status-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 0 24px;
+    align-items: center;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 8.5pt;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .sb-draft { background: #e2e8f0; color: #475569; }
+  .sb-pending { background: #fef3c7; color: #92400e; }
+  .sb-approved { background: #d1fae5; color: #065f46; }
+  .sb-active { background: #dbeafe; color: #1e40af; }
+  .sb-risk { background: #fed7aa; color: #9a3412; }
+  .sb-delinquent { background: #fecaca; color: #991b1b; }
+  .sb-defaulted { background: #fca5a5; color: #7f1d1d; }
+  .sb-np { background: #991b1b; color: white; }
+  .sb-closed { background: #a7f3d0; color: #064e3b; }
+  .sb-arrow { color: var(--text-muted); font-size: 14pt; }
+
+  .print-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 14px 28px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 11pt;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(26, 86, 219, 0.3);
+    z-index: 100;
+    transition: all 0.2s;
+  }
+
+  .print-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(26, 86, 219, 0.4);
+  }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">📄 Save as PDF</button>
+
+<!-- ═══════════════════ COVER PAGE ═══════════════════ -->
+<div class="cover-page">
+  <div class="cover-logo">⚡</div>
+  <div class="cover-title">SMOS</div>
+  <div class="cover-subtitle">Smart Microfinance Operating System</div>
+  <div class="cover-badge">PLATFORM DOCUMENTATION v1.0</div>
+  <div class="cover-meta">
+    <strong>Type:</strong> Multi-Tenant SaaS Lending Platform<br>
+    <strong>Target Market:</strong> East African Microfinance Institutions<br>
+    <strong>Architecture:</strong> React + Node.js + PostgreSQL<br>
+    <strong>Document Date:</strong> May 2026<br>
+  </div>
+</div>
+
+<!-- ═══════════════════ TABLE OF CONTENTS ═══════════════════ -->
+<div class="toc">
+  <h2 style="page-break-before: avoid;">Table of Contents</h2>
+  <ol class="toc-list">
+    <li><span>1. Product Overview</span></li>
+    <li><span>2. Architecture</span></li>
+    <li><span>3. User Roles &amp; Access Hierarchy</span></li>
+    <li><span>4. Core Modules</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.1 Authentication &amp; Security</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.2 Branch Management</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.3 Staff Management</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.4 Client Management</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.5 Loan Lifecycle</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.6 Repayment Engine</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.7 Automated Arrears Classification</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.8 Credit Scoring Engine</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.9 Expense Tracking</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.10 Transaction Management</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.11 Legal Recovery</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.12 Notification System</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.13 Reporting &amp; Analytics</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.14 SaaS Control Plane</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;4.15 Executive Business Console</span></li>
+    <li><span>5. Cashier Workstation</span></li>
+    <li><span>6. Anti-Fraud &amp; Compliance Features</span></li>
+    <li><span>7. Database Schema</span></li>
+    <li><span>8. Security Infrastructure</span></li>
+    <li><span>9. Deployment</span></li>
+    <li><span>10. API Surface Summary</span></li>
+  </ol>
+</div>
+
+<!-- ═══════════════════ CONTENT ═══════════════════ -->
+<div class="container">
+
+<!-- ─── SECTION 1 ─── -->
+<h2>1. Product Overview</h2>
+
+<p><strong>SMOS (Smart Microfinance Operating System)</strong> is a cloud-native, multi-tenant SaaS platform purpose-built for decentralized microfinance institutions operating across multiple branches. It automates the full lending lifecycle — from client registration and loan origination through to repayment collection, arrears classification, credit scoring, legal recovery, and executive reporting.</p>
+
+<p>The platform is designed for the East African microfinance context, with built-in GPS verification, anti-ghost client mechanisms, staff traceability, and Ugandan Shilling (UGX) currency support.</p>
+
+<h3>Key Value Propositions</h3>
+
+<table>
+  <thead><tr><th>Capability</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Multi-Tenant SaaS</strong></td><td>A single deployment serves multiple independent microfinance institutions, each fully isolated with their own branches, staff, clients, and data</td></tr>
+    <tr><td><strong>Decentralized Operations</strong></td><td>Supports geographically distributed branches, each with their own manager, loan officers, and cashiers</td></tr>
+    <tr><td><strong>Full Loan Lifecycle</strong></td><td>Draft → Approval → Disbursement → Repayment → Arrears → Legal Recovery → Closure</td></tr>
+    <tr><td><strong>Automated Risk Engine</strong></td><td>Nightly arrears classification with automatic loan status transitions</td></tr>
+    <tr><td><strong>Credit Intelligence</strong></td><td>Six-factor credit scoring engine (0–1000 scale) for data-driven lending decisions</td></tr>
+    <tr><td><strong>Anti-Fraud Controls</strong></td><td>GPS-verified client locations, mandatory photo verification, supervisor approvals, and full audit trails</td></tr>
+    <tr><td><strong>SaaS Control Plane</strong></td><td>System-owner subscription billing, tenant lock/unlock, revenue tracking, and geo-login monitoring</td></tr>
+  </tbody>
+</table>
+
+<!-- ─── SECTION 2 ─── -->
+<h2>2. Architecture</h2>
+
+<h3>Technology Stack</h3>
+<table>
+  <thead><tr><th>Layer</th><th>Technology</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Frontend</strong></td><td>React 19, TypeScript, Vite, React Router v7</td></tr>
+    <tr><td><strong>Backend</strong></td><td>Node.js, Express.js</td></tr>
+    <tr><td><strong>Database</strong></td><td>PostgreSQL with UUID primary keys, PostGIS (optional)</td></tr>
+    <tr><td><strong>Authentication</strong></td><td>JWT (access + refresh tokens) with bcrypt password hashing</td></tr>
+    <tr><td><strong>Deployment</strong></td><td>Docker Compose (backend port 5000, frontend port 5173)</td></tr>
+    <tr><td><strong>Scheduling</strong></td><td>node-cron for nightly batch jobs</td></tr>
+    <tr><td><strong>Security</strong></td><td>Helmet, CORS, rate limiting, parameterized SQL queries</td></tr>
+  </tbody>
+</table>
+
+<h3>Multi-Tenancy Model</h3>
+<div class="diagram">
+<pre>
+                    ┌──────────────────────────────┐
+                    │   System Owner (Super Admin) │
+                    └──────────┬───────────────────┘
+                               │
+            ┌──────────────────┼──────────────────┐
+            ▼                  ▼                  ▼
+   ┌────────────────┐ ┌────────────────┐ ┌────────────────┐
+   │  Tenant A:     │ │  Tenant B:     │ │  Tenant N:     │
+   │  Kilimo MFI    │ │  Green Finance │ │  ...           │
+   └───────┬────────┘ └───────┬────────┘ └────────────────┘
+           │                  │
+     ┌─────┼─────┐      ┌────┼────┐
+     ▼     ▼     ▼      ▼    ▼    ▼
+   HQ   Kampala Jinja  HQ  Mbarara
+   Branch Branch Branch Branch Branch
+</pre>
+</div>
+
+<p>Every database table includes a <code>tenant_id</code> column for data isolation. The <code>tenantGuard</code> middleware enforces that no user can read or write data outside their tenant boundary, unless they are a <code>super_admin</code>.</p>
+
+<!-- ─── SECTION 3 ─── -->
+<h2>3. User Roles &amp; Access Hierarchy</h2>
+
+<p>SMOS implements a 7-tier role-based access control (RBAC) system:</p>
+
+<table>
+  <thead><tr><th>Role</th><th>Scope</th><th>Key Capabilities</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Super Admin</strong></td><td>System-wide</td><td>Manage tenants, billing subscriptions, lock/unlock accounts, view system financials, geo-login tracking</td></tr>
+    <tr><td><strong>Tenant Admin</strong></td><td>Entire tenant</td><td>Executive dashboard, create branches, manage all staff, approve loans, company-wide reports, financial console</td></tr>
+    <tr><td><strong>Branch Manager</strong></td><td>Single branch</td><td>Branch dashboard, approve/disburse loans, manage staff, reverse transactions, legal case management</td></tr>
+    <tr><td><strong>Supervisor</strong></td><td>Branch oversight</td><td>Approve clients, staff performance appraisals, audit reports, arrears management</td></tr>
+    <tr><td><strong>Loan Officer</strong></td><td>Assigned portfolio</td><td>Register clients, create loan applications, collect repayments, field visit tracking</td></tr>
+    <tr><td><strong>Cashier</strong></td><td>POS workstation</td><td>Process repayments, record expenses, daily cash reconciliation, client CRM</td></tr>
+    <tr><td><strong>Auditor</strong></td><td>Read-only analytics</td><td>Audit trail access, portfolio-at-risk reports, transaction verification</td></tr>
+  </tbody>
+</table>
+
+<!-- ─── SECTION 4 ─── -->
+<h2>4. Core Modules</h2>
+
+<h3>4.1 Authentication &amp; Security</h3>
+<p><strong>API Base:</strong> <code>/api/auth</code></p>
+<ul>
+  <li><strong>Login:</strong> Email + password authentication with JWT issuance</li>
+  <li><strong>Refresh Token Rotation:</strong> Old refresh token is revoked each time a new access token is issued, preventing replay attacks</li>
+  <li><strong>Password Management:</strong> <code>POST /auth/change-password</code> with current password verification and minimum length enforcement (8+ characters)</li>
+  <li><strong>Logout:</strong> Explicit refresh token invalidation</li>
+  <li><strong>Rate Limiting:</strong> Auth endpoints limited to 20 requests per 15 minutes</li>
+  <li><strong>Session Info:</strong> <code>GET /auth/me</code> returns current user profile</li>
+</ul>
+
+<h3>4.2 Branch Management</h3>
+<p><strong>API Base:</strong> <code>/api/branches</code></p>
+<p>Manages the geographical structure of the microfinance institution.</p>
+<ul>
+  <li><strong>Branch Profiles:</strong> Name, code, address, district, region, GPS coordinates, phone, email</li>
+  <li><strong>Manager Assignment:</strong> Each branch has a designated branch manager</li>
+  <li><strong>Operational Metrics</strong> (computed on-the-fly): client count, staff count, active loan count, portfolio value</li>
+  <li><strong>Tenant Isolation:</strong> All queries filtered by <code>tenant_id</code></li>
+</ul>
+
+<h3>4.3 Staff Management</h3>
+<p><strong>API Base:</strong> <code>/api/staff</code></p>
+<p>Comprehensive HR and identity management for microfinance field staff.</p>
+<ul>
+  <li><strong>KYC Data:</strong> National ID, gender, date of birth, dual addresses (village + urban), GPS coordinates</li>
+  <li><strong>Traceability:</strong> Recommender details, internal referees, guarantors with GPS</li>
+  <li><strong>Local Authority Contact:</strong> LC1 chairman name, phone, and address for verification</li>
+  <li><strong>Incident Tracking:</strong> Fraud case flags, absconding flags, audit failure counts, discrepancy counts</li>
+  <li><strong>Secure Onboarding:</strong> Random password generation on staff creation (returned to admin)</li>
+  <li><strong>Staff P&amp;L View:</strong> Per-officer profit/loss — portfolio size, interest earned, defaults, expenses, net profit</li>
+  <li><strong>Staff-Client Registry:</strong> All clients assigned to a specific loan officer</li>
+  <li><strong>Leaderboard:</strong> Performance ranking across the branch</li>
+</ul>
+
+<h3>4.4 Client Management</h3>
+<p><strong>API Base:</strong> <code>/api/clients</code></p>
+<ul>
+  <li><strong>Full KYC Profile:</strong> Name, national ID, gender, DOB, education, marital status, dependants, business info</li>
+  <li><strong>GPS Verification:</strong> Mandatory home GPS coordinates; optional business GPS</li>
+  <li><strong>Anti-Ghost Flags:</strong> <code>gps_captured</code> and <code>photo_verified</code> booleans track field verification</li>
+  <li><strong>Supervisor Approval Flow:</strong> Clients must be approved by a supervisor before receiving loans</li>
+  <li><strong>Document Storage:</strong> Passport photo, ID front/back, and other documents (URL references)</li>
+  <li><strong>Next of Kin:</strong> Multiple next-of-kin records per client</li>
+  <li><strong>Client Map View:</strong> Geographic visualization of all registered clients</li>
+  <li><strong>Client CRM:</strong> Cashier-facing module for client relationship management</li>
+</ul>
+
+<h3>4.5 Loan Lifecycle</h3>
+<p><strong>API Base:</strong> <code>/api/loans</code></p>
+<p>The core lending engine with a 12-state lifecycle:</p>
+
+<div class="status-flow">
+  <span class="status-badge sb-draft">Draft</span>
+  <span class="sb-arrow">→</span>
+  <span class="status-badge sb-pending">Pending Approval</span>
+  <span class="sb-arrow">→</span>
+  <span class="status-badge sb-approved">Approved</span>
+  <span class="sb-arrow">→</span>
+  <span class="status-badge sb-active">Disbursed / Active</span>
+  <span class="sb-arrow">→</span>
+  <span class="status-badge sb-risk">At Risk (1-7d)</span>
+  <span class="sb-arrow">→</span>
+  <span class="status-badge sb-delinquent">Delinquent (8-30d)</span>
+  <span class="sb-arrow">→</span>
+  <span class="status-badge sb-defaulted">Defaulted (31-90d)</span>
+  <span class="sb-arrow">→</span>
+  <span class="status-badge sb-np">Non-Performing (90+d)</span>
+</div>
+<div class="status-flow">
+  <span class="status-badge sb-active">Active</span>
+  <span class="sb-arrow">→</span>
+  <span class="status-badge sb-closed">Closed (Fully Repaid)</span>
+  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <span class="status-badge sb-np">Non-Performing</span>
+  <span class="sb-arrow">→</span>
+  <span class="status-badge sb-draft">Written Off</span>
+</div>
+
+<h4>Loan Terms</h4>
+<ul>
+  <li>Principal amount with flat interest rate</li>
+  <li>Processing fee</li>
+  <li>Repayment frequency: daily, weekly, or monthly</li>
+  <li>Duration in days with computed installment count and amount</li>
+  <li>Auto-generated repayment schedule on disbursement</li>
+</ul>
+
+<h3>4.6 Repayment Engine</h3>
+<p><strong>API Base:</strong> <code>/api/repayments</code></p>
+<ul>
+  <li><strong>Payment Recording:</strong> Amount, date, collection GPS, payment method (cash, mobile money, bank), reference number</li>
+  <li><strong>Schedule Waterfall:</strong> Each payment is applied to overdue installments first, then to the next due installment</li>
+  <li><strong>Loan Balance Sync:</strong> After every payment, the loan's total_paid, outstanding_balance, arrears_amount, and arrears_days are recalculated</li>
+  <li><strong>Auto-Status Update:</strong> If fully repaid, the loan status automatically transitions to <code>closed</code></li>
+  <li><strong>Schedule View:</strong> Full installment schedule with overdue flags and days-overdue calculation</li>
+</ul>
+
+<h3>4.7 Automated Arrears Classification</h3>
+<p>A <code>node-cron</code> job runs every day at <strong>02:00 AM</strong> and processes all active loans:</p>
+
+<table>
+  <thead><tr><th>Arrears Days</th><th>Status Classification</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td><code>active</code></td></tr>
+    <tr><td>1 – 7</td><td><code>at_risk</code></td></tr>
+    <tr><td>8 – 30</td><td><code>delinquent</code></td></tr>
+    <tr><td>31 – 90</td><td><code>defaulted</code></td></tr>
+    <tr><td>90+</td><td><code>non_performing</code></td></tr>
+    <tr><td>Balance ≤ 0</td><td><code>closed</code></td></tr>
+  </tbody>
+</table>
+
+<p>The engine calculates arrears by comparing expected payments-to-date against actual payments received, then determines days since the first missed installment.</p>
+
+<h3>4.8 Credit Scoring Engine</h3>
+<p><strong>API Base:</strong> <code>/api/credit</code></p>
+<p>A six-factor scoring algorithm producing a 0–1000 score:</p>
+
+<table>
+  <thead><tr><th>Factor</th><th>Weight</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Repayment Consistency</strong></td><td>25%</td><td>% of installments paid on or before due date</td></tr>
+    <tr><td><strong>Arrears Frequency</strong></td><td>20%</td><td>How often loans entered arrears (lower = better)</td></tr>
+    <tr><td><strong>Loan History</strong></td><td>15%</td><td>Ratio of closed (completed) loans to total issued</td></tr>
+    <tr><td><strong>Repayment Speed</strong></td><td>15%</td><td>Average days early/late relative to due date</td></tr>
+    <tr><td><strong>Guarantor Strength</strong></td><td>15%</td><td>Number and presence of guarantors</td></tr>
+    <tr><td><strong>Staff Portfolio Risk</strong></td><td>10%</td><td>Default rate of the assigned loan officer's portfolio</td></tr>
+  </tbody>
+</table>
+
+<h4>Risk Grades</h4>
+<table>
+  <thead><tr><th>Grade</th><th>Score Range</th><th>Risk Level</th></tr></thead>
+  <tbody>
+    <tr><td><strong>A</strong></td><td>800 – 1000</td><td>Excellent</td></tr>
+    <tr><td><strong>B</strong></td><td>600 – 799</td><td>Good</td></tr>
+    <tr><td><strong>C</strong></td><td>400 – 599</td><td>Fair</td></tr>
+    <tr><td><strong>D</strong></td><td>200 – 399</td><td>Poor</td></tr>
+    <tr><td><strong>E</strong></td><td>0 – 199</td><td>Very Poor</td></tr>
+  </tbody>
+</table>
+
+<h3>4.9 Expense Tracking</h3>
+<p><strong>API Base:</strong> <code>/api/expenses</code></p>
+<ul>
+  <li><strong>Categories:</strong> Transport, Airtime, Recovery, Operational, Other</li>
+  <li><strong>Approval Workflow:</strong> Expenses must be approved by a manager</li>
+  <li><strong>Linkage:</strong> Expenses can be linked to specific loans or clients for P&amp;L attribution</li>
+  <li><strong>Reversal:</strong> Managers can reverse expenses with reason tracking</li>
+  <li><strong>Staff Summary:</strong> Aggregated view by category per staff member</li>
+</ul>
+
+<h3>4.10 Transaction Management</h3>
+<p><strong>API Base:</strong> <code>/api/transactions</code>, <code>/api/misc</code></p>
+
+<h4>Unified Transaction Ledger</h4>
+<p>A database view (<code>v_transactions</code>) merges four transaction sources into a single timeline:</p>
+<ul>
+  <li><strong>Repayments</strong> (cash inflows)</li>
+  <li><strong>Expenses</strong> (cash outflows)</li>
+  <li><strong>Disbursements</strong> (cash outflows)</li>
+  <li><strong>Miscellaneous</strong> — shortages, excesses, fines, unknown funds, loan returns</li>
+</ul>
+
+<h4>Transaction Reversal &amp; Editing</h4>
+<ul>
+  <li>Managers can reverse repayments or expenses with mandatory reason</li>
+  <li>Transaction type is strictly whitelisted to prevent injection</li>
+  <li>Full audit trail (old → new values) logged on every edit</li>
+</ul>
+
+<h3>4.11 Legal Recovery</h3>
+<p><strong>API Base:</strong> <code>/api/legal</code>, <code>/api/legal-recovery</code></p>
+<ul>
+  <li><strong>Case Filing:</strong> Automatic case number generation, linked to loan/client/staff/branch</li>
+  <li><strong>Status Workflow:</strong> <code>open → in_progress → resolved / escalated → closed</code></li>
+  <li><strong>Court Integration:</strong> Court name, reference number, hearing dates</li>
+  <li><strong>Financial Tracking:</strong> Outstanding balance and arrears at time of filing</li>
+  <li><strong>Report Generator:</strong> Professional legal documents for court proceedings</li>
+</ul>
+
+<h3>4.12 Notification System</h3>
+<p><strong>API Base:</strong> <code>/api/notifications</code></p>
+<ul>
+  <li><strong>Channels:</strong> SMS, WhatsApp, Email, System notifications</li>
+  <li><strong>Automated Reminders:</strong> Batch overdue payment reminders with one-click send</li>
+  <li><strong>Notification Log:</strong> Full history with delivery status (pending, sent, failed)</li>
+</ul>
+
+<h3>4.13 Reporting &amp; Analytics</h3>
+<p><strong>API Base:</strong> <code>/api/reports</code></p>
+
+<table>
+  <thead><tr><th>Report</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Company Dashboard</strong></td><td>System-wide portfolio summary, active loans, total clients, arrears rates</td></tr>
+    <tr><td><strong>Branch Dashboard</strong></td><td>Per-branch KPIs, staff performance, and daily activity</td></tr>
+    <tr><td><strong>Portfolio at Risk (PAR)</strong></td><td>PAR30, PAR60, PAR90 analysis with aging buckets</td></tr>
+    <tr><td><strong>Staff Performance</strong></td><td>Disbursements, collections, arrears per staff over configurable periods</td></tr>
+    <tr><td><strong>Collection Efficiency</strong></td><td>Expected vs. actual collections over time</td></tr>
+    <tr><td><strong>Daily Financial Summary</strong></td><td>Cash inflows/outflows, net position for any given day</td></tr>
+    <tr><td><strong>Maturing Loans</strong></td><td>Loans reaching expected closure date</td></tr>
+    <tr><td><strong>Missed Installments</strong></td><td>Loans with N+ missed payments</td></tr>
+    <tr><td><strong>Dormant Accounts</strong></td><td>Loans with no payment activity for N+ days</td></tr>
+    <tr><td><strong>Staff Arrears Ranking</strong></td><td>Officers ranked by portfolio arrears rate</td></tr>
+    <tr><td><strong>Daily Ledger</strong></td><td>Full cash book: repayments, disbursements, expenses, misc</td></tr>
+    <tr><td><strong>Unpaid Per Officer</strong></td><td>Outstanding balances segmented by loan officer</td></tr>
+    <tr><td><strong>Loan Aging Analysis</strong></td><td>Portfolio segmented by age and status</td></tr>
+    <tr><td><strong>Loans Issued Report</strong></td><td>New loans over a period with staff/branch breakdown</td></tr>
+    <tr><td><strong>Income Statement</strong></td><td>Revenue (interest + fees) minus expenses, with net profit</td></tr>
+    <tr><td><strong>Audit Trail</strong></td><td>Complete log of all system actions with before/after values</td></tr>
+  </tbody>
+</table>
+
+<h3>4.14 SaaS Control Plane</h3>
+<p><strong>API Base:</strong> <code>/api/superadmin</code> — Super Admin only</p>
+<ul>
+  <li><strong>Tenant Management:</strong> Create new microfinance institutions with initial admin, branch, and database setup (transactional)</li>
+  <li><strong>Subscription Billing:</strong> Plan management, billing amounts, billing cycles, grace periods</li>
+  <li><strong>Tenant Lock/Unlock:</strong> Manually suspend or reactivate tenant accounts</li>
+  <li><strong>System Revenue Tracking:</strong> Subscription payments from all tenants</li>
+  <li><strong>System Owner Expenses:</strong> Track platform overhead (servers, APIs, staff, legal)</li>
+  <li><strong>Financial Statement View:</strong> Revenue vs. expense analysis for the SaaS business</li>
+  <li><strong>Geo-Login Monitoring:</strong> Track login activity — IPs, devices, geolocation, success/failure</li>
+</ul>
+
+<h3>4.15 Executive Business Console (Business Owner)</h3>
+<p>A dedicated executive portal for the <strong>Tenant Admin (Business Owner)</strong> to monitor and compare performance across all branches. Unlike the cashier workstation (which handles daily POS operations) or the supervisor dashboard (which manages operational approvals within a single branch), the Executive Console provides <strong>strategic, branch-level comparative analytics</strong> for institutional decision-making.</p>
+
+<div class="callout callout-success">
+  <strong>Key Distinction</strong>
+  All executive reports are <strong>branch-segmented</strong> — the owner selects a specific branch and views its isolated performance metrics, or compares multiple branches side-by-side. This is fundamentally different from the cashier's daily transaction view or the supervisor's operational approval queue.
+</div>
+
+<h4>Branch-Level Executive Reports</h4>
+<table>
+  <thead><tr><th>Report</th><th>Scope</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Branch Dashboard</strong></td><td>Per branch</td><td>Portfolio value, active loans, client count, staff performance KPIs, and daily activity — all scoped to a single selected branch</td></tr>
+    <tr><td><strong>Branch Income Statement</strong></td><td>Per branch</td><td>Gross interest income, processing fees, itemized expenses, net profit, money in circulation, and cash-at-hand — all for a specific branch over a selected date range</td></tr>
+    <tr><td><strong>Branch Collection Efficiency</strong></td><td>Per branch</td><td>Expected vs. actual collections per branch, revealing which branches are underperforming</td></tr>
+    <tr><td><strong>Branch PAR Analysis</strong></td><td>Per branch</td><td>Portfolio-at-Risk (PAR30/60/90) broken down by branch for comparative risk assessment</td></tr>
+    <tr><td><strong>Staff Arrears Ranking</strong></td><td>Per branch</td><td>Loan officers ranked by arrears rate within each branch — identifies weakest performers per location</td></tr>
+    <tr><td><strong>Branch Loan Aging</strong></td><td>Per branch</td><td>Loan portfolio health segmented by age, status, and arrears days for each branch</td></tr>
+  </tbody>
+</table>
+
+<h4>Executive Modules</h4>
+<ul>
+  <li><strong>Portfolio Lifecycle Hub:</strong> End-to-end loan portfolio tracking with branch selector — view disbursements, active loans, defaults, and closures per branch</li>
+  <li><strong>Staff Performance Appraisals:</strong> Data-driven evaluations per branch — collection rates, default rates, client growth, and P&amp;L per loan officer within the selected branch</li>
+  <li><strong>Financial Audit Console:</strong> Branch-level financial reconciliation — compare revenue, expenses, and net profit across branches to identify anomalies</li>
+  <li><strong>Periodic Reporting Hub:</strong> Configurable time-period reports (daily/weekly/monthly/quarterly) per branch for board presentations and investor updates</li>
+</ul>
+
+<div class="callout callout-warning">
+  <strong>Not to be confused with</strong>
+  <strong>Cashier Workstation</strong> — a POS interface for processing daily transactions (repayments, expenses, reconciliation). It has no branch comparison or strategic analytics.<br>
+  <strong>Supervisor Dashboard</strong> — an operational approval queue for client sign-offs, staff oversight, and arrears management within a single branch. It does not provide cross-branch financial analysis.
+</div>
+
+<!-- ─── SECTION 5 ─── -->
+<h2>5. Cashier Workstation</h2>
+
+<p>A <strong>standalone, full-screen point-of-sale interface</strong> designed for cashier staff who process payments all day:</p>
+
+<ul>
+  <li><strong>Repayment Collection:</strong> Quick-entry payment processing with loan lookup</li>
+  <li><strong>Daily Cash Reconciliation:</strong> Real-time balance of inflows vs. outflows</li>
+  <li><strong>Client CRM:</strong> Search clients, view loan histories, audit payment trails</li>
+  <li><strong>Expense Recording:</strong> Log operational expenses during the day</li>
+  <li><strong>Transaction Summary:</strong> Live financial summary filtered by staff and date</li>
+</ul>
+
+<div class="callout callout-info">
+  <strong>Design Note</strong>
+  The cashier workstation operates independently from the admin portal layout — no sidebar, no navigation chrome — just the operational interface optimized for speed and focus.
+</div>
+
+<!-- ─── SECTION 6 ─── -->
+<h2>6. Anti-Fraud &amp; Compliance Features</h2>
+
+<table>
+  <thead><tr><th>Feature</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Mandatory GPS</strong></td><td>Client home coordinates are required at registration — prevents ghost client creation</td></tr>
+    <tr><td><strong>Photo Verification</strong></td><td>Boolean flags track whether client photo has been field-verified</td></tr>
+    <tr><td><strong>Supervisor Approval</strong></td><td>Clients and loans require supervisor sign-off before activation</td></tr>
+    <tr><td><strong>Staff Traceability</strong></td><td>Every staff member has recommender contacts, referees, guarantors, and LC1 authority details</td></tr>
+    <tr><td><strong>Incident Flags</strong></td><td>has_fraud_case, has_absconded, audit_failures, discrepancy_count on staff records</td></tr>
+    <tr><td><strong>Full Audit Trail</strong></td><td>Every create/update/delete action logged with old and new values (JSONB)</td></tr>
+    <tr><td><strong>Transaction Reversal Audit</strong></td><td>Reversals require mandatory reason, track who reversed and when</td></tr>
+    <tr><td><strong>Geo-Login Tracking</strong></td><td>IP, device, browser, and GPS coordinates logged for every login attempt</td></tr>
+  </tbody>
+</table>
+
+<!-- ─── SECTION 7 ─── -->
+<h2>7. Database Schema</h2>
+
+<h3>Key Tables (19 total)</h3>
+
+<table>
+  <thead><tr><th>Table</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><code>tenants</code></td><td>Multi-tenant root entity — microfinance institutions</td></tr>
+    <tr><td><code>branches</code></td><td>Physical branch offices with GPS</td></tr>
+    <tr><td><code>users</code></td><td>All system users with 7 roles, KYC, and GPS</td></tr>
+    <tr><td><code>clients</code></td><td>Borrower KYC, GPS, anti-ghost flags</td></tr>
+    <tr><td><code>loans</code></td><td>Full 12-state loan lifecycle tracking</td></tr>
+    <tr><td><code>repayment_schedules</code></td><td>Auto-generated installment calendar</td></tr>
+    <tr><td><code>repayments</code></td><td>Actual cash collections with GPS</td></tr>
+    <tr><td><code>credit_scores</code></td><td>Six-factor credit risk assessments</td></tr>
+    <tr><td><code>staff_expenses</code></td><td>Operational expense tracking with approval workflow</td></tr>
+    <tr><td><code>misc_transactions</code></td><td>Shortages, fines, excess, unknown funds</td></tr>
+    <tr><td><code>legal_cases</code></td><td>Court case management for delinquent loans</td></tr>
+    <tr><td><code>field_visits</code></td><td>GPS-stamped client visits by loan officers</td></tr>
+    <tr><td><code>notifications</code></td><td>SMS/WhatsApp/Email message log</td></tr>
+    <tr><td><code>audit_logs</code></td><td>Full action history with before/after JSONB</td></tr>
+    <tr><td><code>refresh_tokens</code></td><td>JWT refresh token storage</td></tr>
+    <tr><td><code>system_subscriptions</code></td><td>SaaS subscription billing plans</td></tr>
+    <tr><td><code>system_payments</code></td><td>Subscription payment records</td></tr>
+    <tr><td><code>system_owner_expenses</code></td><td>Platform operational overhead</td></tr>
+    <tr><td><code>system_login_logs</code></td><td>Geo-located login history</td></tr>
+  </tbody>
+</table>
+
+<h3>Pre-built Database Views</h3>
+<table>
+  <thead><tr><th>View</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><code>v_loan_performance</code></td><td>Loan-level KPIs with client/staff/branch names and repayment rate</td></tr>
+    <tr><td><code>v_staff_pnl</code></td><td>Staff-level profit &amp; loss (portfolio, interest earned, defaults, expenses, net profit)</td></tr>
+    <tr><td><code>v_transactions</code></td><td>Unified ledger merging repayments, expenses, disbursements, and misc</td></tr>
+    <tr><td><code>v_system_owner_financials</code></td><td>SaaS revenue vs. expenses aggregated by month/year</td></tr>
+  </tbody>
+</table>
+
+<!-- ─── SECTION 8 ─── -->
+<h2>8. Security Infrastructure</h2>
+
+<table>
+  <thead><tr><th>Layer</th><th>Implementation</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Authentication</strong></td><td>JWT access tokens (8h expiry) + refresh tokens (7d) with rotation</td></tr>
+    <tr><td><strong>Password Hashing</strong></td><td>bcrypt with cost factor 12</td></tr>
+    <tr><td><strong>Authorization</strong></td><td>Role-based middleware on every mutation endpoint</td></tr>
+    <tr><td><strong>Tenant Isolation</strong></td><td>tenant_id filter on all queries; tenantGuard middleware</td></tr>
+    <tr><td><strong>SQL Injection</strong></td><td>Parameterized queries throughout; dynamic table names via constant whitelists</td></tr>
+    <tr><td><strong>Rate Limiting</strong></td><td>Auth: 20 req/15min; API: 300 req/min</td></tr>
+    <tr><td><strong>HTTP Security</strong></td><td>Helmet.js (HSTS, CSP, X-Frame-Options, etc.)</td></tr>
+    <tr><td><strong>Error Masking</strong></td><td>Generic errors to clients; full errors logged server-side</td></tr>
+    <tr><td><strong>CORS</strong></td><td>Restricted to configured frontend origin</td></tr>
+    <tr><td><strong>Audit Trail</strong></td><td>Every data mutation logged with old/new values</td></tr>
+  </tbody>
+</table>
+
+<!-- ─── SECTION 9 ─── -->
+<h2>9. Deployment</h2>
+
+<h3>Docker Compose Services</h3>
+<table>
+  <thead><tr><th>Service</th><th>Technology</th><th>Port</th></tr></thead>
+  <tbody>
+    <tr><td><strong>postgres</strong></td><td>PostgreSQL 15</td><td>5432</td></tr>
+    <tr><td><strong>backend</strong></td><td>Node.js / Express</td><td>5000</td></tr>
+    <tr><td><strong>frontend</strong></td><td>Vite / React</td><td>5173</td></tr>
+  </tbody>
+</table>
+
+<h3>Environment Variables</h3>
+<table>
+  <thead><tr><th>Variable</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><code>DATABASE_URL</code></td><td>PostgreSQL connection string</td></tr>
+    <tr><td><code>JWT_SECRET</code></td><td>Access token signing key</td></tr>
+    <tr><td><code>JWT_REFRESH_SECRET</code></td><td>Refresh token signing key</td></tr>
+    <tr><td><code>JWT_EXPIRES_IN</code></td><td>Access token TTL (default: 8h)</td></tr>
+    <tr><td><code>JWT_REFRESH_EXPIRES_IN</code></td><td>Refresh token TTL (default: 7d)</td></tr>
+    <tr><td><code>FRONTEND_URL</code></td><td>CORS allowed origin</td></tr>
+    <tr><td><code>PORT</code></td><td>Backend listening port (default: 5000)</td></tr>
+  </tbody>
+</table>
+
+<!-- ─── SECTION 10 ─── -->
+<h2>10. API Surface Summary</h2>
+
+<table>
+  <thead><tr><th>Module</th><th>Base Path</th><th>Key Endpoints</th></tr></thead>
+  <tbody>
+    <tr><td>Authentication</td><td><code>/api/auth</code></td><td>login, refresh, logout, me, change-password</td></tr>
+    <tr><td>Branches</td><td><code>/api/branches</code></td><td>CRUD with tenant isolation</td></tr>
+    <tr><td>Staff</td><td><code>/api/staff</code></td><td>CRUD, P&amp;L, clients, leaderboard</td></tr>
+    <tr><td>Clients</td><td><code>/api/clients</code></td><td>CRUD, approval, map, CRM</td></tr>
+    <tr><td>Loans</td><td><code>/api/loans</code></td><td>CRUD, approve, disburse, write-off</td></tr>
+    <tr><td>Repayments</td><td><code>/api/repayments</code></td><td>Record payment, history, schedule</td></tr>
+    <tr><td>Credit</td><td><code>/api/credit</code></td><td>Score lookup, compute, branch summary</td></tr>
+    <tr><td>Expenses</td><td><code>/api/expenses</code></td><td>CRUD, approval, summary</td></tr>
+    <tr><td>Legal</td><td><code>/api/legal</code></td><td>Case CRUD, status transitions</td></tr>
+    <tr><td>Legal Recovery</td><td><code>/api/legal-recovery</code></td><td>Document generation</td></tr>
+    <tr><td>Notifications</td><td><code>/api/notifications</code></td><td>Send, bulk reminders, history</td></tr>
+    <tr><td>Reports</td><td><code>/api/reports</code></td><td>15+ report endpoints</td></tr>
+    <tr><td>Transactions</td><td><code>/api/transactions</code></td><td>Ledger, reverse, edit</td></tr>
+    <tr><td>Misc Transactions</td><td><code>/api/misc</code></td><td>Shortages, fines, excess</td></tr>
+    <tr><td>Super Admin</td><td><code>/api/superadmin</code></td><td>Tenants, billing, financials, login logs</td></tr>
+  </tbody>
+</table>
+
+<hr>
+
+<div style="text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 10pt;">
+  <strong>SMOS v1.0</strong> — Smart Microfinance Operating System<br>
+  Built for Decentralized Lending Intelligence in East Africa<br>
+  <br>
+  <em>Document generated May 2026</em>
+</div>
+
+</div>
+</body>
+</html>

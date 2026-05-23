@@ -1,0 +1,953 @@
+============= OSCAR AUDIT REPORT.pdf =============
+--- Page 1 ---
+INTERNAL AUDIT REPORT 
+Lends-Up Financial Services Ltd 
+ 
+Auditee Tumumanye Oscar 
+Position Loans Officer 
+Branch Entebbe – Abaita Ababiri Trading Centre 
+Audit Period February 2026 – May 2026 
+Date of Absconding 4th May 2026 
+Report Date 10 May 2026 
+ 
+1. Background 
+Tumumanye Oscar was employed by Lendsup Financial Services Ltd as a Loans Officer 
+stationed at the Entebbe – Abaita Ababiri Trading Centre branch. His duties included 
+recruiting clients for loans, inspecting client businesses to minimize default ris ks, 
+assisting clients in completing loan application forms, disbursing loan amounts, 
+collecting daily loan repayments, reporting collections to the office cashier, and preparing 
+daily reports. 
+2. Audit Findings 
+Following a review of loan transactions, client documentation, cash disbursement 
+records, repayment records, and client verification exercises conducted for the period 
+February 2026 to May 2026, the following findings were established: 
+ The Loans Officer, M r. Tumumanye Oscar, abused his position and access to the 
+company loan processing system to fraudulently process loans for personal 
+benefit.  
+ Loan application forms relating to several investigated accounts were found to 
+contain forged and/or falsified client information.  
+ A number of loan accounts were processed in the names of clients who, upon 
+verification, denied having applied for or received the respective loans.  
+ Several telephone contacts captured on the investigated loan application forms 
+were found to be invalid, unreachable, or falsely recorded.  
+--- Page 2 ---
+ Audit verification established that in certain instances, loan amounts processed 
+and disbursed exceeded the amounts allegedly requested by the purported clients.  
+ Physical field verification conducted by the branch supervisor confirmed that a 
+number of previous clients had completed their earlier loan obligations and had 
+not applied for subsequent loans reflected in the system.  
+ Review of repayment records further revealed instances where client repayments  
+collected by the Loans Officer were not fully reported and/or remitted to the 
+office cashier as required under company procedures.  
+ During the course of the field verification and audit investigations, Mr. 
+Tumumanye Oscar absconded from duty on 4th May 20 26 without authorization 
+and failed to return to work thereafter.  
+ Based on the evidence obtained through document examination, cash -out 
+verification, telephone interviews, field investigations, and repayment 
+reconciliation, the audit established reasonabl e grounds to conclude that 
+fraudulent ghost loans were intentionally created and processed by the Loans 
+Officer.  
+ The audit established a total financial loss exposure of UGX 16,139,000 affecting 
+92 client accounts. 
+3. Audit Process 
+ Loans issued between February 2026 and May 2026 were subjected to audit 
+verification. 
+ Cash-out audits were conducted to verify loan disbursement authenticity. 
+ Phone call confirmations were made to clients listed under the investigated loans. 
+ Most phone numbers provided during loan application processing were 
+unreachable or invalid. 
+ Clients who were successfully contacted confirmed that they had neither applied 
+for nor received the investigated loans. 
+ The branch supervisor was instructed to carry out physical field verification of the 
+affected clients. 
+--- Page 3 ---
+ Field verification confirmed that several old clients had completed their previous 
+loans and had not requested new loans. 
+ During the field verification exercise, the Loans Officer absconded from duty  on 
+4th May 2026. 
+4. Audit Conclusion 
+Based on the audit evidence gathered, it was concluded that Mr. Tumumanye Oscar 
+intentionally and fra udulently processed ghost  loans and diverted company funds for 
+personal use. The investigation also established that in some instances, he failed to report 
+client repayment s to the office. The total confirmed financial loss attributable to the 
+fraudulent activities amounts to UGX 16,139,000 affecting 92 clients. 
+5. Recommendations 
+1. Immediate recovery efforts should be initiated through police intervention and/or 
+mediation to recover the stolen funds. 
+2. Field officers should no longer directly disburse loan funds to clients without 
+supervision. 
+3. Managers and supervisors should escort field officers during loan disbursement 
+exercises or require clients to collect funds directly from the office. 
+4. Surprise field audits should be conducted regularly to strengthen accountability. 
+5. Frequent phone call verifications should be carried out for both new and existing 
+clients. 
+6. Special field audits should be undertaken for clients whose phone numbers fail to go 
+through. 
+7. Clients should receive automated SMS notifications upon loan repayment and loan 
+disbursement. 
+8. Clients should be sensitized to always contact the office directly for loan applications, 
+balances, and payment confirmations. 
+ 
+ 
+--- Page 4 ---
+6. Declaration 
+We hereby declare that this audit investigation was conducted in accordance with the 
+internal audit and verification procedures of Lendsup Financial Services Ltd. The 
+findings contained in this report are based on documents reviewed, client verification 
+exercises conducted, cash reconciliation procedures performed, and information obtained 
+during the audit process. 
+To the best of our knowledge and professional judgment, the information presented in 
+this report is true, accurate, and supported by the audit evidence obtained during  the 
+investigation. 
+This report is prepared for internal administrative action, recovery processes, disciplinary 
+action, mediation, and/or legal proceedings where applicable. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 5 ---
+7. Appendices attached: Affected Clients, Loan Disbursement Confirmation, 
+Company license, Forged Loan Application Forms 
+ 
+Affected Clients and Shortage Amounts 
+NAMES LOAN 
+DATE 
+LOAN 
+AMOUNT(UGX) 
+SHORTAGE 
+AMOUNT(UGX) 
+KABUYE JONATHAN 02/05/2026 300,000 290,000 
+NAMAKOYE JENNIFER 30/04/2026 240,000 120,000 
+MUGERWA WILLY 30/04/2026 600,000 540,000 
+SENTAMU MUHAMMED 29/04/2026 360,000 293,000 
+NANSONGA MILLY 29/04/2026 300,000 120,000 
+BYARUGABA ISAAC 29/04/2026 600,000 520,000 
+SENFUKA RONALD 28/04/2026 600,000 500,000 
+NAMBI SCOVIA 28/04/2026 360,000 304,000 
+NAMBATYA ROBINA 28/04/2026 480,000 448,000 
+BYAKATONDA PATRICK 28/04/2026 360,000 297,000 
+NAKKU TEOPISTA 27/04/2026 300,000 100,000 
+NAMPIJJA AMINAH 26/04/2026 360,000 340,000 
+MUTUME SAM 26/04/2026 300,000 230,000 
+ACAN WILLY 26/04/2026 240,000 187,000 
+NAKIWALA AGNES 25/04/2026 180,000 123,000 
+NAWAMUNDU MARY 24/04/2026 240,000 170,000 
+NATURINDA WILBER 24/04/2026 600,000 470,000 
+NAMUKWAYA SYLIVIA 24/04/2026 240,000 196,000 
+NAKINTU JOAN 24/04/2026 300,000 222,000 
+NIYONSENGA ERICK 23/04/2026 360,000 226,000 
+NAMIREMBE PROSSY 23/04/2026 300,000 220,000 
+TUGUME JULIUS 22/04/2026 480,000 336,000 
+SSALI DANIEL 22/04/2026 240,000 158,000 
+BABIRYE JULIET 22/04/2026 600,000 410,000 
+NAKIGANDA CAROL 21/04/2026 600,000 372,000 
+LUBEGA ABASI 21/04/2026 180,000 60,000 
+NALUMANSI SAMALE 20/04/2026 360,000 60,000 
+NAKIBUKA AISHA 20/04/2026 360,000 228,000 
+EDUBE KALIFA 20/04/2026 300,000 60,000 
+0NDURU SCOVIA 20/04/2026 540,000 60,000 
+TUMUHIRWE PRISCA 19/04/2026 960,000 544,000 
+SENKUNGE STEVEN 18/04/2026 540,000 319,000 
+KATINKA EASTER 18/04/2026 480,000 176,000 
+KABIRI HENRY 18/04/2026 120,000 30,000 
+KABIRI HENRY 18/04/2026 120,000 30,000 
+OMONGOLE FRANCIS 17/04/2026 360,000 180,000 
+NANYONGA EDRINE 17/04/2026 180,000 75,000 
+--- Page 6 ---
+NAMES LOAN 
+DATE 
+LOAN 
+AMOUNT(UGX) 
+SHORTAGE 
+AMOUNT(UGX) 
+NABWERU SALIMA 17/04/2026 360,000 205,000 
+MUNGAGWA ENOCK 17/04/2026 360,000 201,000 
+MULINDE ABDUL 17/04/2026 360,000 202,000 
+MULINDE ABDUL 17/04/2026 360,000 202,000 
+ANGOLLA HELLEN 17/04/2026 480,000 160,000 
+NAWANGI ALICE 16/04/2026 240,000 60,000 
+TURYASINGURA GIDEON 15/04/2026 360,000 188,000 
+OBARE FRANCIS 15/04/2026 360,000 272,000 
+TUMWEBAZE IVAN 14/04/2026 240,000 96,000 
+TUMUREBIRE ONESMUS 14/04/2026 300,000 160,000 
+OWEKIMU JULIUS 14/04/2026 180,000 94,000 
+OMURISA JOSIAN 14/04/2026 360,000 176,000 
+NANYONJO ROSE 14/04/2026 420,000 230,000 
+NAMWEMBA FATIA 12/04/2026 240,000 126,000 
+NAMUTEBI DOREEN 12/04/2026 240,000 106,000 
+KIGOYE JOHNBOSCO 12/04/2026 600,000 256,000 
+MUHINDO GERALD 11/04/2026 300,000 156,000 
+KASANGAKI WALTER 11/04/2026 240,000 90,000 
+ZIRUTAYI MARIA 10/04/2026 360,000 60,000 
+NTAMBI JAMES 10/04/2026 300,000 108,000 
+NANZIRI DEBORAH 10/04/2026 360,000 60,000 
+NAMARA PHEOBE 09/04/2026 480,000 114,000 
+KYATUHIRE PENINAH 09/04/2026 240,000 12,000 
+YIGA MUSA 07/04/2026 420,000 134,000 
+ENYANGU MOSES 07/04/2026 420,000 60,000 
+ACHOLA CAROLINE 07/04/2026 360,000 218,000 
+KOBUSINGYE SHEILA 06/04/2026 360,000 122,000 
+KOBUSINGYE SHEILA 06/04/2026 360,000 122,000 
+BALIGEYA FRANK 05/04/2026 600,000 70,000 
+SSESANGA IBRAHIM 04/04/2026 420,000 60,000 
+LUBOWA SHALIF 04/04/2026 300,000 85,000 
+BAMUREYANA KIZA 04/04/2026 300,000 112,000 
+NANTUME BRENDA 03/04/2026 360,000 86,000 
+BOSA DANIEL 03/04/2026 300,000 37,000 
+WANADAYA ENOCK 01/04/2026 360,000 170,000 
+TUMUSIIME BIRUNGI 01/04/2026 420,000 15,000 
+SEMATIMBA STEVEN 01/04/2026 480,000 98,000 
+NASSEJJE JULIET 01/04/2026 360,000 60,000 
+KAYAGA ALLEN 30/03/2026 360,000 145,000 
+DAMBA FATUMAH 30/03/2026 300,000 163,000 
+BATENDE RONAH 30/03/2026 420,000 162,000 
+MUSIKA NAOME 28/03/2026 360,000 49,000 
+--- Page 7 ---
+NAMES LOAN 
+DATE 
+LOAN 
+AMOUNT(UGX) 
+SHORTAGE 
+AMOUNT(UGX) 
+NSEREKO FRED 27/03/2026 360,000 42,000 
+KIYINGI PIUS 27/03/2026 360,000 140,000 
+NANYONJO JOSEPHINE 26/03/2026 360,000 94,000 
+KIWANUKA GEOFREY 25/03/2026 120,000 7,000 
+NDIKIBULIRANI MARY 24/03/2026 360,000 54,000 
+SEGIN SALIM 23/03/2026 300,000 30,000 
+NATUMANYA DAMALI 23/03/2026 300,000 54,000 
+NAGASHA JULIAN 23/03/2026 480,000 87,000 
+NAKAGOLO AISHA 22/03/2026 300,000 18,000 
+ARIMPISA HILLARY 22/03/2026 300,000 64,000 
+NAKATO IMMACULATE 20/03/2026 300,000 70,000 
+KIRIISA BENEDICTOR 20/03/2026 720,000 310,000 
+TURINAWE ALLEN 19/03/2026 420,000 62,000 
+NABUKENYA SARAH 16/03/2026 480,000 225,000 
+NAKIGANDA CAROL 14/03/2026 540,000 90,000 
+NAKAYIGO FAZIRA 10/03/2026 360,000 159,000 
+RUKUNDO SHAKILLAH 27/04/2025 240,000 50,000 
+NAMULINDWA ANNET 16/04/2025 600,000 130,000 
+KABAGAYA HARRIET 12/04/2025 240,000 137,000 
+    
+TOTAL   16,139,000 Ugx 
+ 
+Note: The attached client schedule contains the detailed listing of all affected clients and 
+loan amounts audited. 
+ 
+ 
+ 
+ 
+ 
+ 
+Prepared by: 
+Internal Audit Department 
+Lendsup Financial Services Ltd 
+============= lends up luzira audit report.pdf =============
+--- Page 1 ---
+LENDS-UP FINANCIAL SERVICES LTD  
+AUDIT REPORT 
+Item Details 
+Subject Fraud, Theft, Ghost Loans, and Gross Misconduct Investigation 
+Branch Luzira Branch 
+Location Luzira Trading Centre, Nakawa – Kampala 
+Auditee Mr. Kagina William: Loans Officer/Field Officer 
+Supervisor Concerned Mr. Kamugisha Alex: Supervisor 
+Audit Period 01 April 2026 to 12 May 2026 
+Affected Clients 67 Clients 
+Confirmed Financial 
+Loss 
+UGX 14,250,000 (Fourteen Million Two Hundred Fifty Thousand 
+Shillings Only) 
+Report Type Internal Audit Investigation Report 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 2 ---
+1) Executive Summary 
+Internal Audit conducted an investigation into suspected fraud, theft, ghost lending, and  
+operational misconduct involving Mr. Kagina William , a Loans Officer at Lends Up Financial 
+Services Ltd, Luzira Branch, located at Luzira Trading Centre, Nakawa–Kampala. 
+The investigation established that Mr. Kagina William intentionally failed to deliver the approved 
+loan funds to the rightful and to remit f ield loan repayments collected from clients and instead 
+converted the funds for personal use, resulting in a confirmed shortage of UGX 14,250,000  
+affecting 67 clients. These actions caused severe financial and em otional distress to clients who 
+depended on the loans for medical treatment, business operations, and family welfare. 
+During the course of the audit investigation, Mr. Kagina William absconded from duty on 11 
+May 2026 , an act interpreted as de liberate avoidance of accountability and ongoing audit 
+procedures. 
+The investigation additionally identified serious supervisory negligence involving Mr. 
+Kamugisha Alex , the Branch Supervisor, who failed to execute his oversight responsibilities 
+despite reportedly escorting the Loans Officer to the field on a daily basis. Evidence indicates that 
+the ghost loans were issued in his presence and under his supervision. Mr. Kamugisha Alex further 
+absconded from work on 12 May 2026 after being instructed to accom pany the field auditor for 
+reinspection and client verification exercises. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 3 ---
+2) Background and Scope of Audit 
+2.1 Background 
+Lends Up Financial Services Ltd operates a field-based microfinance lending system where Loans 
+Officers are responsible for recruiting clients, assessing businesses, processing loan applications, 
+collecting repayments, and submitting both repayments and documentation to the office. 
+Supervisors are expected to oversee field operations, verify loan activities, ensure compliance, and 
+monitor the conduct of Loans Officers. 
+2.2 Scope of Audit 
+The audit covered the following areas during the period 1st April 2026 to 12th May 2026: 
+ Loan repayment collection and remittance records 
+ Loan application documentation and approval procedures 
+ Client verification and existence confirmation 
+ Loan disbursement procedures 
+ Ghost loan identification and portfolio review 
+ Field supervision and management oversight 
+ Financial loss and reputational impact assessment 
+3) Roles and Responsibilities 
+3.1 Loans Officer Responsibilities: Mr. Kagina William 
+As a Loans Officer, Mr. Kagina William was responsible for: 
+ Recruiting and onboarding clients 
+ Inspecting client businesses 
+ Preparing and submitting genuine loan applications 
+ Collecting and remitting loan repayments 
+ Delivering approved loans to clients 
+--- Page 4 ---
+ Maintaining proper client records and portfolio integrity 
+ Protecting company resources and reputation 
+The audit established that he intentionally failed to fulfill these responsibilities and instead 
+abused his position for personal gain. 
+3.2 Supervisor Responsibilities: Mr. Kamugisha Alex 
+As Branch Supervisor, Mr. Kamugisha Alex was responsible for: 
+ Supervising field operations and Loans Officers 
+ Verifying authenticity of loan applications and clients 
+ Monitoring loan disbursement and collections 
+ Conducting spot checks and field oversight 
+ Preventing fraud and operational irregularities 
+ Escalating suspicious activity to management 
+The investigation established that he failed to exercise proper supervision and oversight. 
+4) Detailed Audit Findings 
+Finding 1: Failure to Remit Client Loan Repayments (Theft by Conversion) 
+The audit established that Mr. Kagina William collected loan repayments from clients in the field 
+but intentionally failed to submit the funds to the office. 
+Instead, the funds were diverted and used for personal purposes, resulting in a confirmed shortage 
+of: 
+UGX 14,250,000 (Fourteen Million Two Hundred Fifty Thousand Shillings Only) 
+Finding 2: Misappropriation of Client Loan Funds and Irregular Loan Processing 
+The audit established that several clients genuinely applied for loans and properly completed the 
+required loan application documentation. The applications were processed and approved by the 
+--- Page 5 ---
+office, and loan funds were disbursed accordingly. However, the auditees deliberately failed to 
+deliver the approved loan funds to the rightful clients and instead converted the money for personal 
+use. 
+The investigation further confirmed that the affected clients were continuously misled and falsely 
+informed that their loan applications were still pending approval, despite the funds having already 
+been disbursed by the office. 
+The audit additionally identified serious irregularities within the loan processing and verification 
+procedures, including: 
+ Loan funds being received by the auditees on behalf of clients without client 
+acknowledgment or confirmation  
+ Clients being deliberately deceived regarding the status of their approved loans  
+ Supporting documentation lacking credible verification and proper accountability 
+controls  
+ Weak supervisory oversight during loan disbursement and client verification processes  
+ Failure to maintain transparent and accurate loan disbursement records  
+These actions constituted fraud, misrepresentation, abuse of office, and intentional 
+misappropriation of company funds and client entitlements. 
+Finding 3: Absconding from Duty During Audit Investigation 
+During the ongoing audit investigation: 
+ Mr. Kagina William absconded from work on 11 May 2026 
+ His disappearance interrupted audit procedures and accountability efforts 
+The conduct is considered highly suspicious and indicative of deliberate avoidance of 
+investigation processes. 
+ 
+--- Page 6 ---
+Finding 4: Supervisory Negligence and Failure of Oversight 
+The investigation established that: 
+ Mr. Kamugisha Alex regularly escorted the Loans Officer during field activities 
+ Ghost loans were issued in his presence and under his supervision 
+ He failed to detect, prevent, or report the fraudulent activities 
+Further, when instructed to accompany the field auditor for reinspection and verification of 
+remaining clients: 
+ Mr. Kamugisha Alex absconded from work on 12 May 2026 
+ 
+5) Root Cause Assessment 
+The fraud and operational failures were enabled by: 
+ Weak client verification controls 
+ Poor segregation of duties 
+ Inadequate supervision and field oversight 
+ Weak reconciliation of collections against expected repayments 
+ Excessive dependence on manual field processes 
+ Lack of and Delayed branch monitoring and surprise audits 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 7 ---
+6) Conclusion 
+Internal Audit concludes that: 
+Mr. Kagina William 
+Engaged in: 
+ Fraud 
+ Theft  
+ Forgery 
+ Creation of ghost loans 
+ Gross misconduct 
+ Abuse of office 
+Resulting in: 
+ A confirmed shortage of UGX 14,250,000 
+ Harm to 67 clients 
+ Significant reputational and operational damage to Lends Up Financial Services Ltd 
+Mr. Kamugisha Alex 
+Failed in his supervisory duties through: 
+ Gross negligence 
+ Failure of oversight and control 
+ Failure to prevent or report fraudulent activities 
+ Absconding from duty during audit procedures 
+ 
+ 
+ 
+ 
+--- Page 8 ---
+7) Recommendations 
+7.1 Immediate Actions 
+1. Immediately classify both officers as absconded staff pending disciplinary action. 
+2. Confirm and Recover all company property, records from the Auditees. 
+3. Initiate recovery proceedings for the lost funds. 
+4. File formal complaints with relevant law enforcement authorities for criminal 
+investigation and prosecution. 
+5. Conduct a complete portfolio review for all loans processed under the affected branch 
+during the audit period and find a replacement immediately. 
+ 
+7.2 Control and Operational Improvements 
+1. Introduce independent client verification before loan approval. 
+2. Require direct client confirmation during disbursement. 
+3. Strengthen supervisory accountability and documentation. 
+4. Conduct surprise field audits and random portfolio inspections. 
+5. Digitize collection tracking and repayment confirmation systems. 
+6. Strengthen reconciliation procedures between field collections and office records. 
+ 
+8. Attachments: Company License, Affected Clients’ Details, Daily Financial Reports, Staff 
+Bio-data 
+ 
+ 
+ 
+ 
+Audited and Complied By: 
+Audit and Compliance Department, Lends-Up Financial Services Ltd 
+============= LEEWAY FINANCIAL SERVICES LIMITED AUDIT REPORT.pdf =============
+--- Page 1 ---
+LEEWAY FINANCIAL SERVICES LIMITED 
+Audit Report, Nyendo Branch 
+Subject: Cash Handling Irregularities and Fraud by Ms. Kwera Dorah (Cashier) 
+Audit Period: June 2025 – October 2025 
+Date of Compilation: 29th November 2025 
+1. INTRODUCTION 
+This report presents the findings of an  audit conducted at Leeway Financial Services Limited 
+Nyendo Branch, focusing specifically on the conduct, cash handling, and transactional integrity of 
+the branch cashier, Ms. Kwera Dorah. 
+The audit was commissioned following persistent cash shortages, unbalanced daily reports, and 
+suspected fraudulent activities within the branch. The purpose of this audit was to establish the 
+existence, extent, nature, and causes of the losses incurred, identify responsible parties, and 
+provide recommendations suitable for management action. 
+2. AUDIT SCOPE AND METHODOLOGY 
+2.1 Scope 
+The audit covered the period June 2025 to October 2025 and focused on: 
+ Cash-in and cash-out transactions 
+ Client cash-out records 
+ Daily cashier reconciliation reports 
+ Loan disbursement and repayment records 
+ Client registers and supporting documentation 
+2.2 Methodology 
+The audit was conducted through: 
+ Physical inspection of cash records and registers 
+ Reconciliation of daily cash reports against system records 
+ Review of office client cash-out and field visitations for confirmation 
+ Verification of client details, phone numbers, and signatures 
+ Analytical review of shortages and transaction patterns 
+3. AUDITEE DETAILS 
+ Name: Kwera Dorah 
+ Position: Cashier 
+ Branch: Nyendo Branch 
+ Status: Left employment (Abscondment) 
+4. AUDIT FINDINGS 
+The audit established material financial misconduct attributable to the cashier, summarized as 
+follows: 
+--- Page 2 ---
+4.1 Total Cash Shortage 
+ Total Verified Shortage: UGX 23,851,000 
+4.2 Nature of Irregularities Identified 
+1. Fake Cash-Out Transactions 
+ Multiple cash-out entries were recorded without corresponding client confirmation. 
+ Several clients denied receiving funds attributed to them as loan disbursement. 
+ Forged client names, signatures, and telephone numbers were identified. 
+2. Fraudulent Transactions 
+ Intentional manipulation of records to conceal shortages. 
+ Use of false client details and internal office clients to justify cash-outs. 
+3. Miscalculations and Unbalanced Reports 
+ Daily cashier reports consistently failed to balance. 
+ Deliberate misstatements were observed rather than clerical errors. 
+4. Exceeding Approved Loan Limits 
+ Loans were disbursed beyond approved limits without authorization. 
+ Some loan proceeds were not traceable to genuine beneficiaries. 
+5. ANALYSIS OF LOSSES 
+Cause of Shortage Amount (UGX) 
+Fake Cash-Outs 22,333,000 
+Fraud (Other) 136,000 
+Miscalculations 290,000 
+Unbalanced Reports 432,000 
+Exceeding Loan Limits 660,000 
+TOTAL LOSS 23,851,000 
+ 
+6. CLIENT TRANSACTION EVIDENCE 
+A detailed list of clients and transactions associated with the fake cash-outs and irregular payments 
+is attached to this report and forms an integral part of the audit evidence. The attach ed schedules 
+indicate dates, client names, and amounts fraudulently processed by the cashier. 
+7. CAUSES OF THE SHORTAGES 
+The audit concluded that the shortages were caused by: 
+ Fake and fictitious cash-out transactions 
+ Deliberate fraud by the cashier 
+--- Page 3 ---
+ Manipulation of records and reports 
+ Persistent miscalculations and false balancing 
+ Unauthorized exceeding of loan amounts 
+These causes demonstrate intentional misconduct rather than negligence. 
+8. CONCLUSION 
+Based on the evidence reviewed, the audit conclusively establishes that Ms. Kwera Dorah, while 
+serving as cashier at Nyendo Branch, engaged in systematic and deliberate fraudulent activities 
+resulting in a total financial loss of UGX 23,851,000 to Leeway Financial Services Limited. 
+The actions identified constitute gross misconduct, breach of trust, and fraud. 
+9. RECOMMENDATIONS 
+ Immediate recovery proceedings be instituted against the cashier for the full amount of 
+UGX 23,851,000. 
+ The matter be reported to relevant law enforcement authorities for criminal investigation 
+and prosecution. 
+ Strengthen branch supervision and segregation of duties. 
+ Require client cash-outs to be verified independently by field officers or supervisors. 
+ Enforce strict daily cash reconciliation and management oversight. 
+10. AUDITOR’S DECLARATION 
+I declare that this audit was conducted objectively and professionally, and that the findings herein 
+are true and correct to the best of my knowledge, based on evidence examined during the audit 
+period. 
+11. ATTACHMENTS 
+Company License, Face Cash-Outs Daily Signed Reports, Audit Draft 
+ 
+Compiled and Prepared by: 
+Audit and Compliance Department 
+Leeway Financial Services Ltd 
+Date: 29th November 2025 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 4 ---
+ 
+ 
+
+--- Page 5 ---
+ 
+
+--- Page 6 ---
+ 
+
+--- Page 7 ---
+ 
+
+--- Page 8 ---
+ 
+
+============= loan statement felex.pdf =============
+--- Page 1 ---
+Detailed Loan Account Statement
+255323102877201
+Uganda Shillings UGX
+Pride Boda Boda loan - ILS
+Account Number :
+Currency :
+Issue Date : 29/04/2026 12:37:04
+Pride Bank
+Customer
+Customer
+Address :
+FELEX NIWAGABA
+NALYA ,
+NALYA ,
+Unapplied FundsLedger Blance Uncleared Balance Interest Pre-Paid InterestAccrued Charge Pay-Off BalanceCleared BalanceAccount Number
+0.00 0.002,468,578.33 0.00201,396.60 -7,419,974.93-4,750,000.00-4,750,000.00255323102877201
+Principal BalanceCredit AmountTransaction ReferenceTransaction Details Debit AmountPost Date Value Date Event Description
+ 
+Loan Disbursement Debit23/06/2025 23/06/2025 17506957782310002602Loan Disbursement Debit 5,730,000.00 0.00 -5,730,000.00
+Insurance Fee23/06/2025 23/06/2025 17506957782310002602Loan Account Charge Event 60,000.00 0.00 -5,790,000.00
+Loan Processing Fees23/06/2025 23/06/2025 17506957782310002602Loan Account Charge Amortisation Event 180,000.00 0.00 -5,970,000.00
+Stamp Duty Charges23/06/2025 23/06/2025 17506957782310002602Loan Account Charge Event 30,000.00 0.00 -6,000,000.00
+Loan Repayment - Interest23/07/2025 23/07/2025 17532531641630118294Loan Repayment - Interest 0.00 9,519.61 -6,000,000.00
+Loan Repayment - Interest25/07/2025 25/07/2025 17534521293250017714Loan Repayment - Interest 0.00 100,000.00 -6,000,000.00
+Loan Repayment - Principal30/07/2025 30/07/2025 17538687387370132578Loan Repayment - Principal 0.00 179,519.61 -5,820,480.39
+Loan Repayment - Interest30/07/2025 30/07/2025 17538687387370132578Loan Repayment - Interest 0.00 20,480.39 -5,820,480.39
+Loan Repayment - Principal31/07/2025 31/07/2025 17539657564720543596Loan Repayment - Principal 0.00 66,400.00 -5,754,080.39
+Loan Repayment - Principal31/07/2025 31/07/2025 17539762013260558609Loan Repayment - Principal 0.00 4,080.39 -5,750,000.00
+Loan Repayment - Interest23/08/2025 23/08/2025 17559440718110007852Loan Repayment - Interest 0.00 5,926.67 -5,750,000.00
+Loan Repayment - Principal25/08/2025 25/08/2025 17561363262560001427Loan Repayment - Principal 0.00 175,926.67 -5,574,073.33
+Loan Repayment - Interest25/08/2025 25/08/2025 17561363262560001427Loan Repayment - Interest 0.00 123,793.75 -5,574,073.33
+Prepaid Interest25/08/2025 25/08/2025 17561363262560001427Prepaid Interest 0.00 279.58 -5,574,073.33
+S1053 - Prepaid Interest Amortization [255323102877201]26/08/2025 26/08/2025 17562298132820019063Prepaid Interest Amortization 279.58 0.00 -5,574,073.33
+Loan Repayment - Principal29/08/2025 29/08/2025 17564792355520009756Loan Repayment - Principal 0.00 74,073.33 -5,500,000.00
+Loan Repayment - Interest23/09/2025 23/09/2025 17586097595920128456Loan Repayment - Interest 0.00 1,326.67 -5,500,000.00
+Loan Repayment - Principal29/09/2025 29/09/2025 17591597304290038601Loan Repayment - Principal 0.00 250,000.00 -5,250,000.00
+Loan Repayment - Interest29/09/2025 29/09/2025 17591597304290038601Loan Repayment - Interest 0.00 128,673.33 -5,250,000.00
+Loan Repayment - Interest23/10/2025 23/10/2025 17612151021660126007Loan Repayment - Interest 0.00 2,726.67 -5,250,000.00
+Loan Repayment - Principal24/10/2025 24/10/2025 17613098974580288524Loan Repayment - Principal 0.00 250,000.00 -5,000,000.00
+Loan Repayment - Interest24/10/2025 24/10/2025 17613098974580288524Loan Repayment - Interest 0.00 122,800.20 -5,000,000.00
+Prepaid Interest24/10/2025 24/10/2025 17613098974580288524Prepaid Interest 0.00 4,473.13 -5,000,000.00
+S1053 - Prepaid Interest Amortization [255323102877201]25/10/2025 25/10/2025 17613991159120145708Prepaid Interest Amortization 4,193.55 0.00 -5,000,000.00
+S1053 - Prepaid Interest Amortization [255323102877201]26/10/2025 26/10/2025 17614061606270262776Prepaid Interest Amortization 279.58 0.00 -5,000,000.00
+Loan Repayment - Interest23/11/2025 23/11/2025 17638346575520123364Loan Repayment - Interest 0.00 2,171.67 -5,000,000.00
+Loan Repayment - Principal30/11/2025 30/11/2025 17644723071980572142Loan Repayment - Principal 0.00 250,000.00 -4,750,000.00
+Loan Repayment - Interest30/11/2025 30/11/2025 17644723071980572142Loan Repayment - Interest 0.00 127,828.33 -4,750,000.00
+Loan Repayment - Interest23/12/2025 23/12/2025 17664820327140137995Loan Repayment - Interest 0.00 1,421.67 -4,750,000.00
+Total : 1,901,421.676,004,752.71
+Count : 7 22
+Abayita Ababiri
+Entebbe,
+Kampala,
+Central
+Uganda
+Page 1 of 1
+============= Musha Financial Services Loan Application.pdf =============
+--- Page 1 ---
+THE REPUBLIC OF UGANDA 
+MUSHA FINANCIAL SERVICES LTD LOAN APPLICATION FORM 
+Application Date……………………………………………………………….. 
+Loan Taken Date………………………………………………………………… 
+ 
+ 
+ 
+ 
+ 
+Particulars of the Client 
+ 
+Name…………………………………………………………………………………………………………………………………………………..……. 
+NIN…………………………………………………………………ID Number………………………………………………………………………… 
+Residential Address……………………………………………………………Business Address………………..………………………… 
+Tel…………………………………………………………………………Business   Type………………………………………………………….. 
+ 
+Loan Particulars 
+ 
+Amount Applied for……………..……………….in words…………………………………………………………………………………….. 
+Amount approved…………………………………in words…………………………………………………………………………………….. 
+In Words…………………………………………………………………………………………………………………………………………………… 
+ 
+Client Security Details and Consent 
+ 
+I……………………………………………………………………………………………..consent that this……………………………………… 
+is my independent property and I voluntarily, soberly agree to transfer  ownership to Musha Financial 
+Services Ltd for the services offered. The evidence of property ownership is here attached.  
+Item Name…………………………………………………………………………………………..Quantity…………………………………….. 
+Item Specifics……………………………………………………………………………………………………………………………………………. 
+Client Signature………………………………………………………………………………………………………………………………………… 
+Guarantor Name……………………………………………………………………………………….Sign…………..…………………………… 
+Next of Kin Name…………………………………………………………………………………….Sign………………………………………… 
+I…………………………………………………………………………………………………..agree that Musha Financial Services 
+Ltd is free to pick their property whenever they feel its unsecure or in any c ircumstance of bleach of 
+relationship.  
+ 
+Guarantor/Next of Keen Details 
+ 
+Next of Kin Name…………………………………………………………………………………….Sign…………………………………………. 
+Location……………………………………………………………………………………Tel…….……………………………………………………. 
+Guarantor Name………………………………………………………………………………………Sign………………………………………… 
+Guarantor’s 
+Passport Photo 
+Client’s Passport 
+Photo 
+--- Page 2 ---
+Guarantor Location………………………………………………………………………………….Tel………………………………………….. 
+TERMS AND CONDITIONS 
+1. The Loan shall be paid on a daily basis within a period of Thirty (30) days from the date it is 
+granted. 
+2. The Guarantor shall be liable for the loan payment and liable to all consequences o f the loan in 
+case the guarantee fails to pay the loan as per agreed terms and conditions. 
+3. Failure of the client to pay the loan in the period of 30 days, the loan balance shall be applied or 
+penalty incorporated accordingly.  
+4. Total Failure to pay the Loan; the guarantor, next of kin and client shall be sued.  
+5. The collateral put by the client shall be taken with or without notification from any of the parties. 
+Musha Financial Services Ltd shall not be liable for security items’ damage or loss. 
+ 
+Declaration 
+I agree that I have read, understood and ready to comply with the terms and conditions above. 
+Client’s Name……………………………………………………………………………………….Sign……………………………………………. 
+Guarantor’s Name………………………………………………………………………………..Sign……………………………………………. 
+Next of Kin Name………………………………………………………………………………….Sign……………………………………………. 
+ 
+Certificate of Translation 
+ 
+I…………………………………………………………………………………………consent that the details of this agreement 
+have been translated in my local language and well understood. Sign……………………………………………………… 
+ 
+ 
+Residential and Business Location Local Council I Approval 
+ 
+Chairperson’s Name………………………………………………………………………………………Tel.……………………………………. 
+ 
+ 
+ 
+Sign……………………………………………………………….……Stamp…………………………………………………………………………… 
+LCI Defense Name…………………………………………………………………………………………………………………………………….. 
+Tel…………………………………………………………………………………..Sign…………………………………………………………………. 
+ 
+ 
+Musha Financial Services Ltd Loan Approval 
+ 
+Staff Name…………………………………………………………………………………………Sign………………………………………………. 
+Effective Date of Loan……………………………………………………………Loan Maturity Date…………………………………… 
+============= LOANS MANAGEMENT INDEPENDENT CONTRACTOR AGREEMENT.pdf =============
+--- Page 1 ---
+INDEPENDENT CONTRACTOR AGREEMENT 
+(Loans Consultant) 
+This Independent Contractor Agreement ("Agreement") is made and entered into this   _____   day 
+of _______, 20____, by and between: 
+Byax Financial Services Ltd, a duly registered financial institution, having its principal office at 
+Lukuli, Makindye (hereinafter referred to as the "Institution"), 
+AND 
+___________________________________________, an independent contractor engaged as a 
+Loans Consultant, holding contractor identification number ________________, and stationed at 
+Lukuli, Makindye (hereinafter referred to as the "Contractor"). 
+1. Scope of Work 
+The Contractor agrees to provide loans disbursement manageme nt services to the Institution, 
+including but not limited to: 
+ Processing loan applications; 
+ Verifying and assessing client information and financial capability; 
+ Conducting due diligence including site visits of business premises, residential addresses, 
+and guarantors; 
+ Approving or recommending loan applications based on thorough verification; 
+ Managing and responsibly disbursing funds entrusted to the Contractor for client loans, 
+ensuring the funds are used to grow the Institution’s portfolio without causing losses. 
+ Collection of the Loan Repayments while ensuring growth of the cash flows. 
+2. Independent Contractor Status 
+ The Contractor shall perform services as an independent contractor and not as an employee, 
+partner, or agent of the Institution. 
+ The Contractor shall be responsible for all taxes, insurance, and benefits associated with 
+their services. 
+ The Contractor has no authority to bind the Institution or act on its behalf except as 
+expressly authorized. 
+ 
+ 
+ 
+3. Verification and Due Diligence 
+--- Page 2 ---
+The Contractor affirms and guarantees: 
+ All loan applications processed have been personally verified and assessed for fi nancial 
+capability and authenticity. 
+ Business premises, residential addresses, and guarantors associated with loan applicants 
+have been inspected and verified. 
+ Guarantors’ financial standings have been confirmed to ensure their capacity to cover loan 
+obligations in case of default. 
+ All submitted documents, income statements, collateral, and related information have been 
+checked for authenticity and accuracy. 
+4. Financial Responsibility and Compensation 
+ The Contractor shall be responsible for all finances disbursed to them for loan clients under 
+their management. The Contractor shall ensure that these funds are handled prudently to 
+grow the Institution’s loan portfolio and avoid any financial losses. 
+ The Contractor’s remuneration shall be based on the profits earned from the loans 
+managed, whereby the Contractor will receive 13% of the net monthly profits generated 
+from their portfolio. 
+ Additionally, the Contractor shall receive a daily food allowance ranging from UGX 5,000 
+to UGX 20,000, subject to the growth of cash-inflow attributed to their loan management. 
+ The Contractor shall be held liable for any financial losses caused by negligence, fraud, or 
+theft attributable to their actions or omissions. Any such fraud or theft shall be subject to 
+legal proceedings under the courts of law of Uganda. 
+5. Liability and Accountability 
+ The Contractor acknowledges responsibility for any negligence or fai lure to perform due 
+diligence that results in loan default or disappearance of the loan applicant. 
+ The Contractor understands that disciplinary and legal actions, including financial recovery 
+measures, may be taken by the Institution in such cases. 
+6. Term and Termination 
+ This Agreement shall commence on the date signed below and shall continue until 
+terminated by either party with a written notice of at least thirty (30) days. 
+ The Institution shall not terminate this Agreement unless the Contractor has fai led to 
+deliver on their obligations and promises. 
+ This Agreement shall immediately cease to stand if either party reasonably feels insecure 
+or unsafe regarding the continuation of the relationship. 
+ Neither party may terminate this Agreement immediately without prior written notice. 
+7. Confidentiality 
+--- Page 3 ---
+ The Contractor agrees to maintain the confidentiality of all client information, loan 
+application details, and Institution proprietary information obtained during the 
+engagement. 
+8. Governing Law 
+This Agreement shall be governed by and construed in accordance with the laws of Uganda. 
+9. Consent and Acceptance 
+By signing this Agreement, the Contractor acknowledges understanding and acceptance of all 
+terms and guarantees full responsibility for the loan applications handled. 
+IN WITNESS WHEREOF , the parties hereto have executed this Independent Contractor 
+Agreement as of the date first above written. 
+ 
+CONTRACTOR (Loans Consultant): 
+Full Name: ____________________________________________________________________ 
+Contractor ID Number: __________________________________________________________ 
+Signature: _____________________________________________________________________ 
+Date: _________________________________________________________________________ 
+ 
+FOR BYAX FINANCIAL SERVICES LTD: 
+Authorized Representative Name: _________________________________________________ 
+Designation: __________________________________________________________________ 
+Signature: ____________________________________________________________________ 
+Date: ________________________________________________________________________ 
+ 
+Witness: 
+Name: ________________________________________________________________________ 
+Signature: _____________________________________________________________________ 
+Date: _________________________________________________________________________ 
+============= OFFICE MANAGEMENT INDEPENDENT CONTRACTOR AGREEMENT.pdf =============
+--- Page 1 ---
+INDEPENDENT CONTRACTOR AGREEMENT 
+(Office Management Consultant) 
+This Independent Contractor Agreement ("Agreement") is made and entered into this ____ day of 
+____, 20_____, by and between: 
+Byax Financial Services Ltd, a duly registered financial institution, having its principal office at 
+Lukuli, Makindye (hereinafter referred to as the "Institution"), 
+AND 
+___________________________________________, an independent contractor engaged as an 
+Office Management Consultant, hold ing contractor identification number _____________ ___, 
+and stationed at Lukuli, Makindye (hereinafter referred to as the "Contractor"). 
+1. Scope of Work 
+The Contractor agrees to provide office management and loan disbursement oversight services to 
+the Institution, including but not limited to: 
+ Ensuring the smooth and efficient operation of the office and monitoring the performance 
+of all contractors involved in loan processing and disbursement. 
+ Overseeing and managing loan disburse ments to ensure timely, accurate, and secure 
+handling of funds. 
+ Monitoring and safeguarding company finances related to loan disbursement and 
+collections. 
+ Performing cashier duties, including handling cash inflows and outflows, recording 
+transactions, and reconciling cash balances. 
+ Preparing and submitting daily and weekly operational and financial reports to 
+management. 
+ Reporting any misconduct, negligence, fraud, or financial irregularities observed among 
+contractors or staff. 
+ Coordinating with contractor s to ensure compliance with institutional policies and 
+procedures regarding loans and finance management. 
+2. Independent Contractor Status 
+ The Contractor shall perform services as an independent contractor and not as an employee, 
+partner, or agent of the Institution. 
+ The Contractor shall be responsible for all taxes, insurance, and benefits associated with 
+their services. 
+ The Contractor has no authority to bind the Institution or act on its behalf except as 
+expressly authorized. 
+ 
+--- Page 2 ---
+3. Responsibilities and Due Diligence 
+The Contractor affirms and guarantees: 
+ Active oversight of all loan disbursement activities to ensure accuracy, legitimacy, and 
+compliance with the Institution’s guidelines. 
+ Vigilant safeguarding of company finances and proper cashiering practices. 
+ Timely and accurate preparation of reports reflecting daily and weekly office activities, 
+loan disbursement status, and financial reconciliations. 
+ Prompt reporting of any irregularities, misconduct, or breaches of policy by contractors or 
+staff. 
+4. Financial Responsibility and Compensation 
+ The Contractor shall be responsible for managing and safeguarding the company’s finances 
+under their control, including funds disbursed and collected in relation to loan activities. 
+ The Contractor’s remuneration shall be based on a mutually agreed arrangement, reflecting 
+the scope and performance of their management duties. 
+ The Contractor shall be held liable for any financial losses caused by negligence, fraud, or 
+theft attributable to their actions or omissions. Any such fraud or theft shall be subject to 
+legal proceedings under the courts of law of Uganda. 
+5. Liability and Accountability 
+ The Contractor acknowledges responsibility for ensuring office operations and loan 
+disbursement processes are conducted properly and securely. 
+ The Contractor understands that disciplinary and legal actions, including financial recovery 
+measures, may be taken by the Institution in cases of negligence, misconduct, or breach of 
+duties. 
+6. Term and Termination 
+ This Agreement shall commence on the date signed below and shall continue until 
+terminated by either party with a written notice of at least thirty (30) days. 
+ The Institution shall not terminate this Agreement unless the Contractor has failed to 
+deliver on their obligations and promises. 
+ This Agreement shall immediately cease to stand if either party reasonably feels insecure 
+or unsafe regarding the continuation of the relationship. 
+ Neither party may terminate this Agreement immediately without prior written notice. 
+7. Confidentiality 
+ The Contractor agrees to maintain the confidentiality of all client information, financial 
+data, loan application details, and Institution proprietary information obtained during the 
+engagement. 
+--- Page 3 ---
+8. Governing Law 
+This Agreement shall be governed by and construed in accordance with the laws of Uganda. 
+9. Consent and Acceptance 
+By signing this Agreement, the Contractor acknowledges understanding and acceptance of all 
+terms and guarantees full responsibility for office management, financial safeguarding , and 
+reporting duties as outlined. 
+IN WITNESS WHEREOF , the parties hereto have executed this Independent Contractor 
+Agreement as of the date first above written. 
+ 
+CONTRACTOR (Office Management Consultant): 
+ 
+Full Name: ____________________________________________________________________ 
+Contractor ID Number: __________________________________________________________ 
+Signature: _____________________________________________________________________ 
+Date: _________________________________________________________________________ 
+ 
+FOR BYAX FINANCIAL SERVICES LTD: 
+Authorized Representative Name: _________________________________________________ 
+Designation: __________________________________________________________________ 
+Signature: ____________________________________________________________________ 
+Date: ________________________________________________________________________ 
+ 
+Witness: 
+Name: ________________________________________________________________________ 
+Signature: _____________________________________________________________________ 
+Date: _________________________________________________________________________ 
+ 
