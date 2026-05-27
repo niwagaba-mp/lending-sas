@@ -9,6 +9,7 @@ RUN npm ci
 # Copy source code and build
 COPY . .
 ENV VITE_API_URL=/api
+# Build the React app (vite build only - skips tsc type checking to reduce memory usage)
 RUN npm run build
 
 # Stage 2: Runtime image to populate the shared Nginx volume mount
