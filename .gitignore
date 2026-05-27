@@ -1,6 +1,9 @@
 # Dependency directories
 **/node_modules/
 **/dist/
+# Exception: allow pre-built frontend dist to be committed for VM deployment
+!smos/frontend/dist/
+!smos/frontend/dist/**
 
 # Log files
 *.log
