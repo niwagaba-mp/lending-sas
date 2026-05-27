@@ -39,7 +39,18 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.prod
+      dockerfile_inline: |
+        FROM node:18-alpine AS builder
+        WORKDIR /app
+        COPY package*.json ./
+        RUN npm ci
+        COPY . .
+        ENV VITE_API_URL=/api
+        RUN npm run build
+        FROM alpine:latest
+        WORKDIR /app
+        COPY --from=builder /app/dist /app/dist
+        CMD ["sh", "-c", "cp -rp /app/dist/. /app/build/ && echo 'Frontend assets copied.'"]
     container_name: smos_frontend_test_build
     volumes:
       - smos_frontend_assets_test:/app/build
