@@ -6,13 +6,16 @@ import {
   AlertTriangle, Clock
 } from 'lucide-react';
 import { useApp, fmt } from '../../store/AppContext';
-import { DEMO_STAFF, DEMO_LOANS } from '../../services/mockData';
+import api from '../../services/api';
 
 export default function PeriodicReportingHub() {
   const { state } = useApp();
   const [searchParams] = useSearchParams();
   const [activeReport, setActiveReport] = useState('arrears');
   const [selectedStaff, setSelectedStaff] = useState('All Staff Members');
+  const [staff, setStaff] = useState<any[]>([]);
+  const [loans, setLoans] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   
   // Initialize range to current month by default
   const [range, setRange] = useState(() => {
@@ -21,6 +24,25 @@ export default function PeriodicReportingHub() {
     const last = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
     return { from: first, to: last };
   });
+
+  useEffect(() => {
+    let active = true;
+    const fetchData = async () => {
+      try {
+        const staffRes = await api.getStaff();
+        const loansRes = await api.getLoans();
+        if (active) {
+          setStaff(staffRes.data || []);
+          setLoans(loansRes.data || []);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
+    return () => { active = false; };
+  }, []);
 
   const curr = state.user?.currency || 'UGX';
 
@@ -41,7 +63,7 @@ export default function PeriodicReportingHub() {
   ];
 
   const currentReport = reports.find(r => r.id === activeReport) || reports[0];
-  const staffList = DEMO_STAFF.map(s => `${s.first_name} ${s.last_name}`);
+  const staffList = staff.map(s => `${s.first_name} ${s.last_name}`);
 
   useEffect(() => {
     const type = searchParams.get('type');
@@ -56,7 +78,7 @@ export default function PeriodicReportingHub() {
   const getDetailedData = () => {
     if (selectedStaff === 'All Staff Members') return [];
     
-    return DEMO_LOANS.map(loan => ({
+    return loans.map(loan => ({
       id: loan.id,
       name: loan.client_name,
       phone: loan.client_phone,
@@ -71,7 +93,7 @@ export default function PeriodicReportingHub() {
 
   const detailedRows = getDetailedData();
   const reportRows = selectedStaff === 'All Staff Members' 
-    ? DEMO_STAFF.map((staff, i) => ({ 
+    ? staff.map((staff, i) => ({ 
         name: `${staff.first_name} ${staff.last_name}`, 
         desc: activeReport === 'disbursement' ? `${12 + (i * 4)} Clients Disbursed` : `Institutional summary for ${currentReport.label.toLowerCase()}`, 
         qty: activeReport === 'disbursement' ? 12 + (i * 4) : 1, 

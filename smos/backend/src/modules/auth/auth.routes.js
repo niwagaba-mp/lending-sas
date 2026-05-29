@@ -23,10 +23,12 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Email and password required' });
 
     const result = await db.query(
-      `SELECT u.*, b.name AS branch_name, t.name AS tenant_name, t.currency, t.slug AS tenant_slug
+      `SELECT u.*, b.name AS branch_name, t.name AS tenant_name, t.currency, t.slug AS tenant_slug,
+              s.status AS tenant_status, t.is_active AS tenant_active
        FROM users u
        JOIN branches b ON u.branch_id = b.id
        JOIN tenants t ON u.tenant_id = t.id
+       LEFT JOIN system_subscriptions s ON t.id = s.tenant_id
        WHERE u.email = $1 AND u.is_active = true`,
       [email.toLowerCase()]
     );
@@ -37,6 +39,19 @@ router.post('/login', async (req, res) => {
     const user = result.rows[0];
     const valid = await bcrypt.compare(password, user.password_hash);
     if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
+
+    // Enforce tenant gating checks (exclude superadmin user)
+    if (user.role !== 'super_admin') {
+      if (user.tenant_status === 'locked' || !user.tenant_active) {
+        return res.status(403).json({ error: 'Access Locked: Subscription is currently suspended by system administration. Please contact support.' });
+      }
+      if (user.tenant_status === 'pending_approval') {
+        return res.status(403).json({ error: 'Onboarding Pending: Your subscription registration is currently undergoing system administration review.' });
+      }
+      if (user.tenant_status === 'rejected') {
+        return res.status(403).json({ error: 'Registration Rejected: Your onboarding application was declined.' });
+      }
+    }
 
     // Update last login
     await db.query('UPDATE users SET last_login_at = NOW() WHERE id = $1', [user.id]);

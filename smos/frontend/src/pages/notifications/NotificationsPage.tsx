@@ -5,7 +5,6 @@ import {
 } from 'lucide-react';
 import api from '../../services/api';
 import { useApp } from '../../store/AppContext';
-import { DEMO_CLIENTS, DEMO_LOANS } from '../../services/mockData';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 interface Notification {

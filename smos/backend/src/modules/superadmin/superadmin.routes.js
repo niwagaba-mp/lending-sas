@@ -1,17 +1,12 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const db = require('../../config/db');
 const { authenticate, authorize } = require('../../middleware/auth');
 
 const router = express.Router();
 
-// Only SuperAdmin can access these routes
-router.use(authenticate);
-router.use(authorize('super_admin'));
-
-// ─── TENANT MANAGEMENT ──────────────────────────────────────────
-
-// GET /superadmin/tenants
-router.get('/tenants', async (req, res) => {
+// ─── GET /tenants — List all tenants (SuperAdmin only) ────────────────
+router.get('/', authenticate, authorize('super_admin'), async (req, res) => {
   try {
     const result = await db.query(
       `SELECT t.*, 
@@ -24,89 +19,161 @@ router.get('/tenants', async (req, res) => {
     );
     res.json({ success: true, data: result.rows });
   } catch (err) {
+    console.error('GET /tenants error:', err.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// POST /superadmin/tenants — Create new tenant
-router.post('/tenants', async (req, res) => {
+// ─── POST /tenants — Public Onboarding (no auth required) ─────────────
+router.post('/', async (req, res) => {
   const client = await db.pool.connect();
   try {
+    const {
+      name,
+      slug,
+      email,
+      admin_password,
+      plan_name,
+      billing_amount,
+      country,
+      payment_status,
+      sub_status,
+    } = req.body;
+
+    if (!name || !slug || !email || !admin_password) {
+      return res.status(400).json({ error: 'Name, slug, email, and admin password are required' });
+    }
+
+    // Check if tenant slug already exists
+    const existingTenant = await client.query('SELECT id FROM tenants WHERE slug = $1', [slug.toLowerCase().trim()]);
+    if (existingTenant.rows.length > 0) {
+      return res.status(400).json({ error: 'A tenant workspace with this slug already exists.' });
+    }
+
+    // Check if user email already exists
+    const existingUser = await client.query('SELECT id FROM users WHERE email = $1', [email.toLowerCase().trim()]);
+    if (existingUser.rows.length > 0) {
+      return res.status(400).json({ error: 'A user with this email address already exists.' });
+    }
+
     await client.query('BEGIN');
-    const { name, slug, email, phone, country, currency, billing_amount } = req.body;
-    
-    // 1. Create Tenant
-    const tenant = await client.query(
-      `INSERT INTO tenants (name, slug, email, phone, country, currency) 
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [name, slug, email, phone, country, currency]
+
+    // 1. Create Tenant (set is_active = false initially until approved)
+    const tenantRes = await client.query(
+      `INSERT INTO tenants (name, slug, country, is_active, settings) 
+       VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      [
+        name,
+        slug.toLowerCase().trim(),
+        country || 'Uganda',
+        sub_status === 'active',
+        JSON.stringify({ base_billing: billing_amount || 0, addons: [] }),
+      ]
+    );
+    const tenant = tenantRes.rows[0];
+
+    // 2. Create Default Branch (HQ)
+    const branchRes = await client.query(
+      `INSERT INTO branches (tenant_id, name, code, is_active)
+       VALUES ($1, 'Head Office', 'HQ', true) RETURNING *`,
+      [tenant.id]
+    );
+    const branch = branchRes.rows[0];
+
+    // 3. Hash Admin Password & Create User (role: tenant_admin)
+    const passwordHash = await bcrypt.hash(admin_password, 12);
+    const nameParts = name.trim().split(/\s+/);
+    const firstName = nameParts[0] || 'Admin';
+    const lastName = nameParts.slice(1).join(' ') || 'User';
+
+    const userRes = await client.query(
+      `INSERT INTO users (tenant_id, branch_id, role, first_name, last_name, email, password_hash, is_active)
+       VALUES ($1, $2, 'tenant_admin', $3, $4, $5, $6, true) RETURNING *`,
+      [tenant.id, branch.id, firstName, lastName, email.toLowerCase().trim(), passwordHash]
     );
 
-    // 2. Initialize Subscription
+    // 4. Initialize System Subscription (status defaults to sub_status or pending_approval)
     await client.query(
-      `INSERT INTO system_subscriptions (tenant_id, billing_amount, currency, next_billing_date)
-       VALUES ($1, $2, $3, CURRENT_DATE + INTERVAL '30 days')`,
-      [tenant.rows[0].id, billing_amount, currency]
+      `INSERT INTO system_subscriptions (tenant_id, plan_name, billing_amount, status, next_billing_date)
+       VALUES ($1, $2, $3, $4, CURRENT_DATE + INTERVAL '30 days')`,
+      [tenant.id, plan_name || 'Enterprise', billing_amount || 0, sub_status || 'pending_approval']
     );
+
+    // 5. Store payment if marked as paid
+    if (payment_status === 'paid') {
+      await client.query(
+        `INSERT INTO system_payments (tenant_id, amount, payment_method, status, notes)
+         VALUES ($1, $2, 'card', 'completed', 'Initial subscription checkout payment')`,
+        [tenant.id, billing_amount || 0]
+      );
+    }
 
     await client.query('COMMIT');
-    res.status(201).json({ success: true, data: tenant.rows[0] });
+    res.status(201).json({ success: true, data: tenant });
   } catch (err) {
     await client.query('ROLLBACK');
+    console.error('POST /tenants onboarding error:', err.message);
     res.status(500).json({ error: 'Internal server error' });
   } finally {
     client.release();
   }
 });
 
-// ─── BILLING & LOCKING ──────────────────────────────────────────
-
-// PUT /superadmin/subscriptions/:id/lock
-router.put('/subscriptions/:tenant_id/lock', async (req, res) => {
+// ─── PUT /tenants/:id — Approve/Lock/Edit Tenant (SuperAdmin only) ────
+router.put('/:id', authenticate, authorize('super_admin'), async (req, res) => {
+  const client = await db.pool.connect();
   try {
-    const { is_locked } = req.body;
-    await db.query(
-      `UPDATE system_subscriptions SET is_locked_manually = $1, status = $2 WHERE tenant_id = $3`,
-      [is_locked, is_locked ? 'locked' : 'active', req.params.tenant_id]
-    );
-    // Also update tenant is_active for redundant protection
-    await db.query(`UPDATE tenants SET is_active = $1 WHERE id = $2`, [!is_locked, req.params.tenant_id]);
-    
-    res.json({ success: true, message: `Tenant ${is_locked ? 'Locked' : 'Unlocked'} successfully` });
+    const tenantId = req.params.id;
+    const { sub_status, base_billing, billing_amount, addons } = req.body;
+
+    await client.query('BEGIN');
+
+    // Fetch current tenant to merge settings
+    const tenantRes = await client.query('SELECT settings FROM tenants WHERE id = $1', [tenantId]);
+    if (tenantRes.rows.length === 0) {
+      return res.status(404).json({ error: 'Tenant not found' });
+    }
+
+    // 1. Handle status update (active/locked/rejected)
+    if (sub_status !== undefined) {
+      await client.query(
+        `UPDATE system_subscriptions SET status = $1, is_locked_manually = $2 WHERE tenant_id = $3`,
+        [sub_status, sub_status === 'locked', tenantId]
+      );
+
+      await client.query(
+        `UPDATE tenants SET is_active = $1 WHERE id = $2`,
+        [sub_status === 'active', tenantId]
+      );
+    }
+
+    // 2. Handle billing & addons settings update
+    if (base_billing !== undefined || billing_amount !== undefined || addons !== undefined) {
+      if (billing_amount !== undefined) {
+        await client.query(
+          `UPDATE system_subscriptions SET billing_amount = $1 WHERE tenant_id = $2`,
+          [billing_amount, tenantId]
+        );
+      }
+
+      let settings = tenantRes.rows[0].settings || {};
+      if (base_billing !== undefined) settings.base_billing = base_billing;
+      if (addons !== undefined) settings.addons = addons;
+
+      await client.query(
+        `UPDATE tenants SET settings = $1 WHERE id = $2`,
+        [JSON.stringify(settings), tenantId]
+      );
+    }
+
+    await client.query('COMMIT');
+    res.json({ success: true, message: 'Tenant subscription and settings updated successfully' });
   } catch (err) {
+    await client.query('ROLLBACK');
+    console.error('PUT /tenants/:id error:', err.message);
     res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// ─── FINANCIAL STATEMENTS & PROJECTIONS ──────────────────────────
-
-// GET /superadmin/financials
-router.get('/financials', async (req, res) => {
-  try {
-    const revenue = await db.query(`SELECT * FROM v_system_owner_financials ORDER BY year DESC, month DESC`);
-    const overhead = await db.query(`SELECT * FROM system_owner_expenses ORDER BY expense_date DESC`);
-    
-    res.json({ success: true, data: { revenue: revenue.rows, overhead: overhead.rows } });
-  } catch (err) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// ─── GEO-TRACKING & LOGS ─────────────────────────────────────────
-
-// GET /superadmin/login-logs
-router.get('/login-logs', async (req, res) => {
-  try {
-    const result = await db.query(
-      `SELECT l.*, u.first_name || ' ' || u.last_name as user_name, t.name as tenant_name
-       FROM system_login_logs l
-       JOIN users u ON l.user_id = u.id
-       JOIN tenants t ON l.tenant_id = t.id
-       ORDER BY l.login_time DESC LIMIT 100`
-    );
-    res.json({ success: true, data: result.rows });
-  } catch (err) {
-    res.status(500).json({ error: 'Internal server error' });
+  } finally {
+    client.release();
   }
 });
 

@@ -28,6 +28,7 @@ import SuperAdminHub from './pages/admin/SuperAdminHub';
 import ExecutiveBusinessConsole from './pages/admin/ExecutiveBusinessConsole';
 import ExportPage from './pages/admin/ExportPage';
 import NotificationsPage from './pages/notifications/NotificationsPage';
+import DocumentVaultPage from './pages/vault/DocumentVaultPage';
 
 
 
@@ -94,6 +95,7 @@ const AppLoader = () => {
         <Route path="/reports" element={<ReportsPage />} />
         <Route path="/audit" element={<TransactionsHistory />} />
         <Route path="/branches" element={<BranchesPage />} />
+        <Route path="/vault" element={<DocumentVaultPage />} />
       </Route>
     </Routes>
   );

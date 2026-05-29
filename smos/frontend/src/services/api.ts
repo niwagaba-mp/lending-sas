@@ -2,7 +2,7 @@ import {
   DEMO_USER, DEMO_TOKEN, DEMO_BRANCHES, DEMO_STAFF,
   DEMO_CLIENTS, DEMO_LOANS, DEMO_EXPENSES,
   DEMO_LEGAL, DEMO_DASHBOARD, DEMO_TRANSACTIONS, DEMO_DAILY_REPORTS,
-  DEMO_SUPER_ADMIN, DEMO_BUSINESS_OWNER, syncGet, syncSet,
+  DEMO_SUPER_ADMIN, DEMO_BUSINESS_OWNER, DEMO_DOCUMENTS, DEMO_TENANTS, syncGet, syncSet,
 } from './mockData';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -15,65 +15,7 @@ function setDemoMode(val: boolean) {
   val ? localStorage.setItem('smos_demo', 'true') : localStorage.removeItem('smos_demo');
 }
 
-let isSynced = false;
-function initDemoSync() {
-  if (isSynced || !isDemoMode()) return;
-  isSynced = true;
-  
-  const st = syncGet('staff', DEMO_STAFF);
-  if (st && st.length > 0) {
-    const ids = new Set(st.map((x: any) => x.id));
-    DEMO_STAFF.forEach(item => { if (!ids.has(item.id)) st.push(item); });
-    DEMO_STAFF.length = 0; DEMO_STAFF.push(...st);
-  }
-  
-  const cl = syncGet('clients', DEMO_CLIENTS);
-  if (cl && cl.length > 0) {
-    const ids = new Set(cl.map((x: any) => x.id));
-    DEMO_CLIENTS.forEach(item => { if (!ids.has(item.id)) cl.push(item); });
-    DEMO_CLIENTS.length = 0; DEMO_CLIENTS.push(...cl);
-  }
-  
-  const lo = syncGet('loans', DEMO_LOANS);
-  if (lo && lo.length > 0) {
-    const ids = new Set(lo.map((x: any) => x.id));
-    DEMO_LOANS.forEach(item => { if (!ids.has(item.id)) lo.push(item); });
-    DEMO_LOANS.length = 0; DEMO_LOANS.push(...lo);
-  }
-  
-  const ex = syncGet('expenses', DEMO_EXPENSES);
-  if (ex && ex.length > 0) {
-    const ids = new Set(ex.map((x: any) => x.id));
-    DEMO_EXPENSES.forEach(item => { if (!ids.has(item.id)) ex.push(item); });
-    DEMO_EXPENSES.length = 0; DEMO_EXPENSES.push(...ex);
-  }
-  
-  const tx = syncGet('tx', DEMO_TRANSACTIONS);
-  if (tx && tx.length > 0) {
-    tx.forEach((t: any) => {
-      if (t.reference === 'LN-2024-001') t.reference = 'LN-2026-001';
-      if (t.reference === 'LN-2024-002') t.reference = 'LN-2026-002';
-    });
-    const ids = new Set(tx.map((x: any) => x.id));
-    DEMO_TRANSACTIONS.forEach(item => { if (!ids.has(item.id)) tx.push(item); });
-    DEMO_TRANSACTIONS.length = 0; DEMO_TRANSACTIONS.push(...tx);
-  }
-  
-  const le = syncGet('legal', DEMO_LEGAL);
-  if (le && le.length > 0) {
-    const ids = new Set(le.map((x: any) => x.id));
-    DEMO_LEGAL.forEach(item => { if (!ids.has(item.id)) le.push(item); });
-    DEMO_LEGAL.length = 0; DEMO_LEGAL.push(...le);
-  }
-  
-  const br = syncGet('branches', DEMO_BRANCHES);
-  if (br && br.length > 0) {
-    const ids = new Set(br.map((x: any) => x.id));
-    DEMO_BRANCHES.forEach(item => { if (!ids.has(item.id)) br.push(item); });
-    DEMO_BRANCHES.length = 0; DEMO_BRANCHES.push(...br);
-  }
-
-  // ── Dynamically Align active loans and transaction dates to today's date ──
+function alignDemoDates() {
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
   
@@ -115,9 +57,83 @@ function initDemoSync() {
       t.date = todayStr;
       t.timestamp = new Date().toISOString();
     }
+    if (t.reference === 'LN-2024-001') t.reference = 'LN-2026-001';
+    if (t.reference === 'LN-2024-002') t.reference = 'LN-2026-002';
   });
+}
+
+function initDemoSync() {
+  if (!isDemoMode()) return;
   
-  saveDemoSync();
+  if (localStorage.getItem('smos_sync_initialized') !== 'true') {
+    alignDemoDates();
+    syncSet('staff', DEMO_STAFF);
+    syncSet('clients', DEMO_CLIENTS);
+    syncSet('loans', DEMO_LOANS);
+    syncSet('expenses', DEMO_EXPENSES);
+    syncSet('tx', DEMO_TRANSACTIONS);
+    syncSet('legal', DEMO_LEGAL);
+    syncSet('branches', DEMO_BRANCHES);
+    syncSet('documents', DEMO_DOCUMENTS);
+    syncSet('tenants', DEMO_TENANTS);
+    localStorage.setItem('smos_sync_initialized', 'true');
+  }
+
+  const st = syncGet('staff', []);
+  if (st) {
+    DEMO_STAFF.length = 0;
+    DEMO_STAFF.push(...st);
+  }
+  
+  const cl = syncGet('clients', []);
+  if (cl) {
+    DEMO_CLIENTS.length = 0;
+    DEMO_CLIENTS.push(...cl);
+  }
+  
+  const lo = syncGet('loans', []);
+  if (lo) {
+    DEMO_LOANS.length = 0;
+    DEMO_LOANS.push(...lo);
+  }
+  
+  const ex = syncGet('expenses', []);
+  if (ex) {
+    DEMO_EXPENSES.length = 0;
+    DEMO_EXPENSES.push(...ex);
+  }
+  
+  const tx = syncGet('tx', []);
+  if (tx) {
+    DEMO_TRANSACTIONS.length = 0;
+    DEMO_TRANSACTIONS.push(...tx);
+  }
+  
+  const le = syncGet('legal', []);
+  if (le) {
+    DEMO_LEGAL.length = 0;
+    DEMO_LEGAL.push(...le);
+  }
+  
+  const br = syncGet('branches', []);
+  if (br) {
+    DEMO_BRANCHES.length = 0;
+    DEMO_BRANCHES.push(...br);
+  }
+  
+  const docs = syncGet('documents', []);
+  if (docs) {
+    DEMO_DOCUMENTS.length = 0;
+    DEMO_DOCUMENTS.push(...docs);
+  }
+
+  const tn = syncGet('tenants', []);
+  if (tn) {
+    DEMO_TENANTS.length = 0;
+    DEMO_TENANTS.push(...tn);
+  }
+
+  alignDemoDates();
 }
 
 function saveDemoSync() {
@@ -129,6 +145,8 @@ function saveDemoSync() {
   syncSet('tx', DEMO_TRANSACTIONS);
   syncSet('legal', DEMO_LEGAL);
   syncSet('branches', DEMO_BRANCHES);
+  syncSet('documents', DEMO_DOCUMENTS);
+  syncSet('tenants', DEMO_TENANTS);
 }
 
 function calculateLoanPerformance(loan: any) {
@@ -412,18 +430,83 @@ export default {
       'sarah@kilimomf.co.ug': 'Cashier@2024',
       'officer@kilimomf.co.ug': 'password123'
     };
-    const normalizedEmail = email.toLowerCase();
-    const isDemo = normalizedEmail in demoAccounts && demoAccounts[normalizedEmail] === password;
+    const normalizedEmail = email.toLowerCase().trim();
+    
+    // Check if it's a dynamic tenant login
+    let matchedTenant = DEMO_TENANTS.find((t: any) => t.email && t.email.toLowerCase() === normalizedEmail);
+    const isTenantLogin = matchedTenant && matchedTenant.admin_password === password;
+    
+    const forceLive = localStorage.getItem('smos_force_live') === 'true';
+    const isDemo = !forceLive && ((normalizedEmail in demoAccounts && demoAccounts[normalizedEmail] === password) || isTenantLogin);
 
     if (isDemo) {
       setDemoMode(true);
       initDemoSync();
+
+      // Subscription Status Enforcements
+      if (normalizedEmail !== 'superadmin@kilimomf.co.ug') {
+        const tenantId = isTenantLogin ? matchedTenant.id : 'tenant-001';
+        const tenant = DEMO_TENANTS.find((t: any) => t.id === tenantId);
+        if (tenant) {
+          if (tenant.sub_status === 'locked') {
+            throw new Error('Access Locked: Subscription is currently suspended by system administration. Please contact support.');
+          }
+          if (tenant.sub_status === 'pending_approval') {
+            throw new Error('Onboarding Pending: Your subscription registration is currently undergoing system administration review.');
+          }
+          if (tenant.sub_status === 'rejected') {
+            throw new Error('Registration Rejected: Your onboarding application was declined.');
+          }
+        }
+      }
+
+      const normalized = normalizedEmail;
+      let mappedStaffId = '';
+      if (normalized === 'admin@kilimomf.co.ug') mappedStaffId = 's001';
+      else if (normalized === 'sarah@kilimomf.co.ug') mappedStaffId = 's004';
+      else if (normalized === 'officer@kilimomf.co.ug') mappedStaffId = 's002';
+
+      const staffMember = DEMO_STAFF.find((s: any) => 
+        (s.email && s.email.toLowerCase() === normalized) || 
+        (mappedStaffId && s.id === mappedStaffId)
+      );
+
+      if (staffMember && staffMember.status === 'suspended') {
+        throw new Error('Account Suspended: Access denied by system administration.');
+      }
+
       let user = DEMO_USER;
-      if (email === DEMO_SUPER_ADMIN.email) user = DEMO_SUPER_ADMIN as any;
-      else if (email === DEMO_BUSINESS_OWNER.email) user = DEMO_BUSINESS_OWNER as any;
-      else if (email === 'sarah@kilimomf.co.ug') user = { ...DEMO_USER, id: 'demo-cashier', first_name: 'Sarah', last_name: 'Nambi', email, role: 'cashier' };
-      else if (email === 'admin@kilimomf.co.ug') user = { ...DEMO_USER, id: 'demo-manager', first_name: 'Branch', last_name: 'Manager', email, role: 'branch_manager' };
-      else if (email === 'officer@kilimomf.co.ug') user = { ...DEMO_USER, id: 's002', first_name: 'Agnes', last_name: 'Akello', email, role: 'loan_officer', branch_id: 'branch-002', branch_name: 'Gulu Branch' };
+      if (normalized === DEMO_SUPER_ADMIN.email.toLowerCase()) {
+        user = DEMO_SUPER_ADMIN as any;
+      } else if (normalized === DEMO_BUSINESS_OWNER.email.toLowerCase()) {
+        user = DEMO_BUSINESS_OWNER as any;
+      } else if (isTenantLogin) {
+        user = {
+          ...DEMO_USER,
+          id: `owner-${matchedTenant.id}`,
+          first_name: matchedTenant.name.split(' ')[0],
+          last_name: 'Owner',
+          email: normalized,
+          role: 'tenant_admin',
+          tenant_id: matchedTenant.id,
+          tenant_name: matchedTenant.name,
+          branch_name: 'Head Office'
+        };
+      } else if (staffMember) {
+        user = {
+          ...DEMO_USER,
+          id: staffMember.id,
+          first_name: staffMember.first_name,
+          last_name: staffMember.last_name,
+          email: normalized, // keep login email for session matching
+          role: staffMember.role || (normalized === 'admin@kilimomf.co.ug' ? 'branch_manager' : normalized === 'sarah@kilimomf.co.ug' ? 'cashier' : 'loan_officer'),
+          branch_name: staffMember.branch_name || 'Head Office'
+        };
+      } else {
+        if (normalized === 'sarah@kilimomf.co.ug') user = { ...DEMO_USER, id: 'demo-cashier', first_name: 'Sarah', last_name: 'Nambi', email: normalized, role: 'cashier' };
+        else if (normalized === 'admin@kilimomf.co.ug') user = { ...DEMO_USER, id: 'demo-manager', first_name: 'Branch', last_name: 'Manager', email: normalized, role: 'branch_manager' };
+        else if (normalized === 'officer@kilimomf.co.ug') user = { ...DEMO_USER, id: 's002', first_name: 'Agnes', last_name: 'Akello', email: normalized, role: 'loan_officer', branch_id: 'branch-002', branch_name: 'Gulu Branch' };
+      }
 
       localStorage.setItem('smos_token', DEMO_TOKEN);
       localStorage.setItem('smos_user', JSON.stringify(user));
@@ -453,6 +536,46 @@ export default {
     }
   },
 
+  // ── Tenants ──────────────────────────────────────────────────────────────
+  getTenants: async () => {
+    initDemoSync();
+    return isDemoMode() ? { data: DEMO_TENANTS } : api.get('/tenants');
+  },
+  createTenant: async (data: any) => {
+    initDemoSync();
+    if (isDemoMode()) {
+      const newTenant = {
+        id: `t${Date.now()}`,
+        user_count: 1,
+        loan_count: 0,
+        country: data.country || 'Uganda',
+        created_at: new Date().toISOString().split('T')[0],
+        addons: [],
+        payment_status: data.payment_status || 'unpaid',
+        payment_link: data.payment_link || `https://pay.smos.io/${data.slug}/invoice-${Date.now().toString().slice(-4)}`,
+        sub_status: data.sub_status || 'pending_approval',
+        ...data
+      };
+      DEMO_TENANTS.unshift(newTenant);
+      saveDemoSync();
+      return { data: newTenant };
+    }
+    return api.post('/tenants', data);
+  },
+  updateTenant: async (id: string, data: any) => {
+    initDemoSync();
+    if (isDemoMode()) {
+      const idx = DEMO_TENANTS.findIndex(t => t.id === id);
+      if (idx !== -1) {
+        DEMO_TENANTS[idx] = { ...DEMO_TENANTS[idx], ...data };
+        saveDemoSync();
+        return { data: DEMO_TENANTS[idx] };
+      }
+      return { data: null };
+    }
+    return api.put(`/tenants/${id}`, data);
+  },
+
   // ── Branches ──────────────────────────────────────────────────────────────
   getBranches:  async () => { initDemoSync(); return isDemoMode() ? { data: DEMO_BRANCHES } : api.get('/branches'); },
   getBranch:    async (id: string) => {
@@ -468,6 +591,7 @@ export default {
     return api.get(`/branches/${id}`);
   },
   createBranch: async (data: any) => {
+    initDemoSync();
     if (isDemoMode()) {
       const newB = { ...data, id: `branch-${Date.now()}` };
       DEMO_BRANCHES.push(newB);
@@ -477,6 +601,7 @@ export default {
     return api.post('/branches', data);
   },
   updateBranch: async (id: string, data: any) => {
+    initDemoSync();
     if (isDemoMode()) {
       const idx = DEMO_BRANCHES.findIndex(b => b.id === id);
       if (idx !== -1) {
@@ -489,7 +614,7 @@ export default {
   },
 
   // ── Staff ─────────────────────────────────────────────────────────────────
-  getStaff:       async (params = '') => isDemoMode() ? paginate(DEMO_STAFF, params) : api.get(`/staff?${params}`),
+  getStaff:       async (params = '') => { initDemoSync(); return isDemoMode() ? paginate(DEMO_STAFF, params) : api.get(`/staff?${params}`); },
   getStaffById:   async (id: string) => { initDemoSync(); return isDemoMode() ? { data: DEMO_STAFF.find(s => s.id === id) } : api.get(`/staff/${id}`); },
   createStaff:    async (data: any) => {
     if (isDemoMode()) {
@@ -512,6 +637,7 @@ export default {
     return api.post('/staff', data);
   },
   updateStaff:    async (id: string, data: any) => {
+    initDemoSync();
     if (isDemoMode()) {
       const idx = DEMO_STAFF.findIndex(s => s.id === id);
       if (idx !== -1) {
@@ -522,6 +648,19 @@ export default {
       return { data: { ...data, id } };
     }
     return api.put(`/staff/${id}`, data);
+  },
+  deleteStaff:    async (id: string) => {
+    initDemoSync();
+    if (isDemoMode()) {
+      const idx = DEMO_STAFF.findIndex(s => s.id === id);
+      if (idx !== -1) {
+        const deleted = DEMO_STAFF.splice(idx, 1)[0];
+        saveDemoSync();
+        return { data: deleted };
+      }
+      return { data: null };
+    }
+    return api.delete(`/staff/${id}`);
   },
   markStaffSalaryPaid: async (id: string) => {
     if (isDemoMode()) {
@@ -597,9 +736,10 @@ export default {
   getLeaderboard: async () => { initDemoSync(); return isDemoMode() ? { data: DEMO_STAFF } : api.get('/staff/meta/leaderboard'); },
 
   // ── Clients ───────────────────────────────────────────────────────────────
-  getClients:    async (params = '') => isDemoMode() ? paginate(DEMO_CLIENTS, params) : api.get(`/clients?${params}`),
+  getClients:    async (params = '') => { initDemoSync(); return isDemoMode() ? paginate(DEMO_CLIENTS, params) : api.get(`/clients?${params}`); },
   getClientById: async (id: string) => { initDemoSync(); return isDemoMode() ? { data: DEMO_CLIENTS.find(c => c.id === id) } : api.get(`/clients/${id}`); },
   createClient:  async (data: any) => {
+    initDemoSync();
     if (isDemoMode()) {
       const userStr = localStorage.getItem('smos_user');
       let loggedInUser: any = null;
@@ -647,6 +787,7 @@ export default {
     return api.post('/clients', data);
   },
   updateClient:  async (id: string, data: any) => {
+    initDemoSync();
     if (isDemoMode()) {
       const userStr = localStorage.getItem('smos_user');
       let loggedInUser: any = null;
@@ -1037,6 +1178,7 @@ export default {
     return api.get(`/loans/${id}`);
   },
   createLoan:   async (data: any) => {
+    initDemoSync();
     if (isDemoMode()) {
       const principal = Number(data.principal_amount || 0);
       const interestRate = Number(data.interest_rate || 20);
@@ -1108,6 +1250,7 @@ export default {
     return api.post('/loans', data);
   },
   approveLoan:  async (id: string) => {
+    initDemoSync();
     if (isDemoMode()) {
       const l = DEMO_LOANS.find(ln => ln.id === id);
       if (l) { l.status = 'approved'; saveDemoSync(); }
@@ -1116,6 +1259,7 @@ export default {
     return api.post(`/loans/${id}/approve`, {});
   },
   disburseLoan: async (id: string, data: any) => {
+    initDemoSync();
     if (isDemoMode()) {
       const l: any = DEMO_LOANS.find(ln => ln.id === id);
       if (l) {
@@ -1146,6 +1290,7 @@ export default {
     return api.post(`/loans/${id}/disburse`, data);
   },
   deleteLoan: async (id: string) => {
+    initDemoSync();
     if (isDemoMode()) {
       const idx = DEMO_LOANS.findIndex(l => l.id === id);
       if (idx !== -1) {
@@ -1157,6 +1302,7 @@ export default {
     return api.delete(`/loans/${id}`);
   },
   writeoffLoan: async (id: string) => {
+    initDemoSync();
     if (isDemoMode()) {
       const l = DEMO_LOANS.find(ln => ln.id === id);
       if (l) { l.status = 'written_off'; saveDemoSync(); }
@@ -1167,6 +1313,7 @@ export default {
 
   // ── Repayments ────────────────────────────────────────────────────────────
   recordPayment: async (data: any) => {
+    initDemoSync();
     if (isDemoMode()) {
       const loan = DEMO_LOANS.find(l => l.id === data.loan_id || l.loan_number === data.loan_number || l.loan_number === data.reference_number);
       const amt = parseFloat(data.amount_paid || data.amount || 0);
@@ -1243,8 +1390,9 @@ export default {
     : api.post(`/credit/${clientId}/compute`, {}),
 
   // ── Expenses ──────────────────────────────────────────────────────────────
-  getExpenses:    async (params = '') => isDemoMode() ? paginate(DEMO_EXPENSES, params) : api.get(`/expenses?${params}`),
+  getExpenses:    async (params = '') => { initDemoSync(); return isDemoMode() ? paginate(DEMO_EXPENSES, params) : api.get(`/expenses?${params}`); },
   createExpense:  async (data: any) => {
+    initDemoSync();
     if (isDemoMode()) {
       let staffName = 'General Staff';
       if (data.staff_id) {
@@ -1434,8 +1582,9 @@ export default {
   },
 
   // ── Ledger & Transactions ──────────────────────────────────────────────────
-  getTransactions: async (params = '') => isDemoMode() ? paginate(DEMO_TRANSACTIONS, params) : api.get(`/transactions?${params}`),
+  getTransactions: async (params = '') => { initDemoSync(); return isDemoMode() ? paginate(DEMO_TRANSACTIONS, params) : api.get(`/transactions?${params}`); },
   reverseTransaction: async (id: string, reason: string, type: string = 'repayment') => {
+    initDemoSync();
     if (isDemoMode()) {
       const tx: any = DEMO_TRANSACTIONS.find(t => t.id === id);
       if (tx && tx.status !== 'reversed') {
@@ -1558,4 +1707,51 @@ export default {
       loan_details: [{ loan_number: 'LN001', client_name: 'Test Client', principal_amount: 1000000, processing_fee: 50000 }],
       staff_performance: [{ staff_name: 'Agent A', total_clients: 100, paid_clients: 80, expected_today: 1000000, collected_today: 800000 }]
     } } : api.get(`/reports/daily/financial-summary?date=${date}${branchId ? `&branch_id=${branchId}` : ''}`),
+
+  // ── Document Vault ────────────────────────────────────────────────────────
+  getDocuments: async (params = '') => {
+    initDemoSync();
+    if (isDemoMode()) {
+      const p = new URLSearchParams(params);
+      const category = p.get('category');
+      const search = (p.get('search') || '').toLowerCase();
+      let docs = [...DEMO_DOCUMENTS];
+      if (category) docs = docs.filter(d => d.category === category);
+      if (search) docs = docs.filter(d =>
+        d.name.toLowerCase().includes(search) ||
+        d.entity_name.toLowerCase().includes(search) ||
+        (d.notes || '').toLowerCase().includes(search)
+      );
+      docs.sort((a, b) => new Date(b.uploaded_at).getTime() - new Date(a.uploaded_at).getTime());
+      return { data: docs };
+    }
+    return api.get(`/documents?${params}`);
+  },
+  uploadDocument: async (data: any) => {
+    if (isDemoMode()) {
+      initDemoSync();
+      const newDoc = {
+        ...data,
+        id: `doc-${Date.now()}`,
+        uploaded_at: new Date().toISOString(),
+        uploaded_by: (() => {
+          try { const u = JSON.parse(localStorage.getItem('smos_user') || '{}'); return `${u.first_name} ${u.last_name}`; } catch { return 'Unknown'; }
+        })(),
+      };
+      DEMO_DOCUMENTS.push(newDoc);
+      saveDemoSync();
+      return { data: newDoc };
+    }
+    return api.post('/documents', data);
+  },
+  deleteDocument: async (id: string) => {
+    if (isDemoMode()) {
+      initDemoSync();
+      const idx = DEMO_DOCUMENTS.findIndex(d => d.id === id);
+      if (idx !== -1) DEMO_DOCUMENTS.splice(idx, 1);
+      saveDemoSync();
+      return { data: { success: true } };
+    }
+    return api.delete(`/documents/${id}`);
+  },
 };

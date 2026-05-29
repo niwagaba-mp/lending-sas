@@ -348,3 +348,20 @@ export const DEMO_DAILY_REPORTS = [
     locked_by: 'Sarah Nambi' 
   }
 ];
+
+export const DEMO_DOCUMENTS: any[] = [
+  { id: 'doc-001', name: 'National ID - Mary Nakato', category: 'client', subcategory: 'national_id', entity_id: 'c001', entity_name: 'Mary Nakato', file_type: 'image/jpeg', file_size: 245000, file_data: '', uploaded_by: 'John Mukasa', uploaded_at: '2023-02-10T10:30:00Z', notes: 'Front and back of national ID' },
+  { id: 'doc-002', name: 'Passport Photo - James Okello', category: 'client', subcategory: 'passport_photo', entity_id: 'c002', entity_name: 'James Okello', file_type: 'image/jpeg', file_size: 180000, file_data: '', uploaded_by: 'Agnes Akello', uploaded_at: '2023-04-05T14:20:00Z', notes: 'Recent passport photo' },
+  { id: 'doc-003', name: 'Loan Application - Grace Tusiime', category: 'client', subcategory: 'loan_application', entity_id: 'c003', entity_name: 'Grace Tusiime', file_type: 'application/pdf', file_size: 520000, file_data: '', uploaded_by: 'Peter Tusiime', uploaded_at: '2023-07-15T09:00:00Z', notes: 'Signed loan application form' },
+  { id: 'doc-004', name: 'Employment Contract - John Mukasa', category: 'staff', subcategory: 'employment_contract', entity_id: 's001', entity_name: 'John Mukasa', file_type: 'application/pdf', file_size: 890000, file_data: '', uploaded_by: 'Admin Demo', uploaded_at: '2023-01-05T08:00:00Z', notes: 'Full-time employment contract' },
+  { id: 'doc-005', name: 'ID Copy - Agnes Akello', category: 'staff', subcategory: 'id_copy', entity_id: 's002', entity_name: 'Agnes Akello', file_type: 'image/png', file_size: 310000, file_data: '', uploaded_by: 'Admin Demo', uploaded_at: '2023-03-20T11:00:00Z', notes: 'National ID photocopy' },
+  { id: 'doc-006', name: 'Business Trading Licence 2024', category: 'business', subcategory: 'trading_licence', entity_id: 'tenant-001', entity_name: 'Kilimo MF', file_type: 'application/pdf', file_size: 1200000, file_data: '', uploaded_by: 'Benjamin Owner', uploaded_at: '2024-01-15T10:00:00Z', notes: 'Annual trading licence from KCCA' },
+  { id: 'doc-007', name: 'Money Lender Permit', category: 'business', subcategory: 'regulatory_permit', entity_id: 'tenant-001', entity_name: 'Kilimo MF', file_type: 'application/pdf', file_size: 750000, file_data: '', uploaded_by: 'Benjamin Owner', uploaded_at: '2024-02-01T09:30:00Z', notes: 'Uganda Microfinance Regulatory Authority permit' },
+  { id: 'doc-008', name: 'Insurance Policy 2024', category: 'business', subcategory: 'insurance', entity_id: 'tenant-001', entity_name: 'Kilimo MF', file_type: 'application/pdf', file_size: 980000, file_data: '', uploaded_by: 'Benjamin Owner', uploaded_at: '2024-03-10T14:00:00Z', notes: 'Business comprehensive insurance policy' },
+];
+
+export const DEMO_TENANTS: any[] = [
+  { id: 'tenant-001', name: 'Kilimo Microfinance', slug: 'kilimo-mf', email: 'admin@kilimo.co.ug', plan_name: 'Enterprise', base_billing: 500000, billing_amount: 750000, sub_status: 'active', user_count: 12, loan_count: 433, country: 'Uganda', created_at: '2024-01-15', addons: ['Dedicated DB Replica (+150k)', 'Premium SMS Integration (+100k)'], payment_status: 'paid', payment_link: 'https://pay.smos.io/kilimo-mf/invoice-2026-05' },
+  { id: 't2', name: 'Bukoto SACCO', slug: 'bukoto-sacco', email: 'info@bukoto.ug', plan_name: 'Premium', base_billing: 300000, billing_amount: 300000, sub_status: 'active', user_count: 8, loan_count: 156, country: 'Uganda', created_at: '2024-02-10', addons: [], payment_status: 'unpaid', payment_link: 'https://pay.smos.io/bukoto-sacco/invoice-2026-05' },
+  { id: 't3', name: 'Nairobi Credit', slug: 'nairobi-cr', email: 'billing@nairobi.ke', plan_name: 'Basic', base_billing: 150000, billing_amount: 150000, sub_status: 'locked', user_count: 4, loan_count: 89, country: 'Kenya', created_at: '2024-03-05', addons: [], payment_status: 'paid', payment_link: 'https://pay.smos.io/nairobi-cr/invoice-2026-05' }
+];

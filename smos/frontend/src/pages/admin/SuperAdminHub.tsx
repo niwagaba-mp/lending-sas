@@ -2,16 +2,17 @@ import { useState, useEffect } from 'react';
 import { 
   Shield, Users, Globe, Lock, Unlock, DollarSign, TrendingUp, 
   Map as MapIcon, Activity, ExternalLink, Plus, Search, 
-  BarChart3, Clock, Smartphone, Laptop, CheckSquare, Square, Trash2, Calendar, UserCheck, X, Server, Cpu, Database, Settings, Check
+  BarChart3, Clock, Smartphone, Laptop, CheckSquare, Square, Trash2, Calendar, UserCheck, X, Server, Cpu, Database, Settings, Check, Upload, FileText, AlertTriangle
 } from 'lucide-react';
 import { fmt } from '../../store/AppContext';
+import api from '../../services/api';
 
 export default function SuperAdminHub() {
   const [tenants, setTenants] = useState<any[]>([]);
   const [logs, setLogs] = useState<any[]>([]);
   const [financials, setFinancials] = useState<any>(null);
   const [, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'tenants' | 'billing' | 'geo' | 'finance' | 'tasks'>('tenants');
+  const [activeTab, setActiveTab] = useState<'tenants' | 'billing' | 'approvals' | 'geo' | 'finance' | 'tasks'>('tenants');
   const [search, setSearch] = useState('');
 
   // Modals State
@@ -54,6 +55,14 @@ export default function SuperAdminHub() {
   const [newExpCategory, setNewExpCategory] = useState('');
   const [newExpAmount, setNewExpAmount] = useState('');
 
+  // Approvals Tab States
+  const [selectedApprovalTenant, setSelectedApprovalTenant] = useState<any>(null);
+  const [approvalDocs, setApprovalDocs] = useState<any[]>([]);
+  const [newSlaFile, setNewSlaFile] = useState<any>(null);
+  const [slaFileName, setSlaFileName] = useState('');
+  const [slaFileNotes, setSlaFileNotes] = useState('');
+  const [slaUploadLoading, setSlaUploadLoading] = useState(false);
+
   useEffect(() => {
     loadData();
   }, []);
@@ -62,11 +71,7 @@ export default function SuperAdminHub() {
     try {
       setLoading(true);
       const [tenantsRes, logsRes, finRes] = await Promise.all([
-        { data: [
-          { id: 't1', name: 'Kilimo Microfinance', slug: 'kilimo-mf', email: 'admin@kilimo.co.ug', plan_name: 'Enterprise', base_billing: 500000, billing_amount: 750000, sub_status: 'active', user_count: 12, loan_count: 433, country: 'Uganda', created_at: '2024-01-15', addons: ['Dedicated DB Replica (+150k)', 'Premium SMS Integration (+100k)'] },
-          { id: 't2', name: 'Bukoto SACCO', slug: 'bukoto-sacco', email: 'info@bukoto.ug', plan_name: 'Premium', base_billing: 300000, billing_amount: 300000, sub_status: 'overdue', user_count: 8, loan_count: 156, country: 'Uganda', created_at: '2024-02-10', addons: [] },
-          { id: 't3', name: 'Nairobi Credit', slug: 'nairobi-cr', email: 'billing@nairobi.ke', plan_name: 'Basic', base_billing: 150000, billing_amount: 150000, sub_status: 'locked', user_count: 4, loan_count: 89, country: 'Kenya', created_at: '2024-03-05', addons: [] }
-        ]},
+        api.getTenants(),
         { data: [
           { id: 'l1', user_name: 'Sarah Nambi', tenant_name: 'Kilimo Microfinance', login_time: new Date().toISOString(), ip_address: '197.232.44.12', city: 'Kampala', country: 'Uganda', device_type: 'desktop', browser_name: 'Chrome' },
           { id: 'l2', user_name: 'John Okello', tenant_name: 'Bukoto SACCO', login_time: new Date(Date.now() - 3600000).toISOString(), ip_address: '41.210.155.67', city: 'Masaka', country: 'Uganda', device_type: 'mobile', browser_name: 'Safari' },
@@ -82,9 +87,18 @@ export default function SuperAdminHub() {
         }}
       ]);
 
-      setTenants(tenantsRes.data);
+      setTenants(tenantsRes.data || []);
       setLogs(logsRes.data);
       setFinancials(finRes.data);
+
+      // Refresh approvals details if a tenant is selected
+      if (selectedApprovalTenant) {
+        const fresh = (tenantsRes.data || []).find((x: any) => x.id === selectedApprovalTenant.id);
+        if (fresh) {
+          setSelectedApprovalTenant(fresh);
+          loadApprovalDocs(fresh.id);
+        }
+      }
     } catch (e) {
       console.error(e);
     } finally {
@@ -92,37 +106,61 @@ export default function SuperAdminHub() {
     }
   };
 
-  const toggleLock = async (tenant: any) => {
-    const action = tenant.sub_status === 'locked' ? 'Unlock' : 'Lock';
-    if (window.confirm(`Are you sure you want to ${action} ${tenant.name}?`)) {
-      loadData();
+  const loadApprovalDocs = async (tId: string) => {
+    try {
+      const res = await api.getDocuments();
+      if (res.data) {
+        const tenantFiles = res.data.filter((d: any) => d.entity_id === tId && (d.category === 'business' || d.category === 'tenant'));
+        setApprovalDocs(tenantFiles);
+      }
+    } catch (e) {
+      console.error('Failed to load documents for approvals:', e);
     }
   };
 
-  const handleOnboardTenant = (e: React.FormEvent) => {
+  const selectApprovalTenant = (tenant: any) => {
+    setSelectedApprovalTenant(tenant);
+    loadApprovalDocs(tenant.id);
+  };
+
+  const toggleLock = async (tenant: any) => {
+    const action = tenant.sub_status === 'locked' ? 'Unlock' : 'Lock';
+    const nextStatus = tenant.sub_status === 'locked' ? 'active' : 'locked';
+    if (window.confirm(`Are you sure you want to ${action} ${tenant.name}?`)) {
+      try {
+        await api.updateTenant(tenant.id, { sub_status: nextStatus });
+        loadData();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
+
+  const handleOnboardTenant = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTenantName || !newTenantSlug) return;
-    setTenants([{
-      id: String(Date.now()),
-      name: newTenantName,
-      slug: newTenantSlug,
-      email: newTenantEmail || 'admin@' + newTenantSlug + '.co.ug',
-      plan_name: newTenantPlan,
-      base_billing: Number(newTenantBilling),
-      billing_amount: Number(newTenantBilling),
-      addons: [],
-      sub_status: 'active',
-      user_count: 1,
-      loan_count: 0,
-      country: 'Uganda',
-      created_at: new Date().toISOString().split('T')[0]
-    }, ...tenants]);
-    setNewTenantName('');
-    setNewTenantSlug('');
-    setNewTenantEmail('');
-    setNewTenantPassword('');
-    setNewTenantRecoveryEmail('');
-    setShowOnboardModal(false);
+    try {
+      await api.createTenant({
+        name: newTenantName,
+        slug: newTenantSlug.toLowerCase().trim(),
+        email: newTenantEmail || 'admin@' + newTenantSlug.toLowerCase().trim() + '.co.ug',
+        admin_password: newTenantPassword || 'Password@2026',
+        plan_name: newTenantPlan,
+        base_billing: Number(newTenantBilling),
+        billing_amount: Number(newTenantBilling),
+        sub_status: 'active',
+        payment_status: 'paid'
+      });
+      setNewTenantName('');
+      setNewTenantSlug('');
+      setNewTenantEmail('');
+      setNewTenantPassword('');
+      setNewTenantRecoveryEmail('');
+      setShowOnboardModal(false);
+      loadData();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const openBillingEditor = (t: any) => {
@@ -145,7 +183,7 @@ export default function SuperAdminHub() {
     setEditAddons(editAddons.filter((_, i) => i !== index));
   };
 
-  const saveBillingChanges = (e: React.FormEvent) => {
+  const saveBillingChanges = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingBillingTenant) return;
 
@@ -160,14 +198,83 @@ export default function SuperAdminHub() {
 
     const newTotalBilling = Number(editBaseBilling) + totalAddonPrice;
 
-    setTenants(tenants.map(t => t.id === editingBillingTenant.id ? {
-      ...t,
-      base_billing: Number(editBaseBilling),
-      billing_amount: newTotalBilling,
-      addons: editAddons
-    } : t));
+    try {
+      await api.updateTenant(editingBillingTenant.id, {
+        base_billing: Number(editBaseBilling),
+        billing_amount: newTotalBilling,
+        addons: editAddons
+      });
+      setEditingBillingTenant(null);
+      loadData();
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-    setEditingBillingTenant(null);
+  const handleApproveTenant = async (id: string) => {
+    if (!window.confirm('Approve this subscription and provision this tenant node?')) return;
+    try {
+      await api.updateTenant(id, { sub_status: 'active' });
+      alert('Tenant subscription approved and instances provisioned successfully!');
+      loadData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleRejectTenant = async (id: string) => {
+    if (!window.confirm('Decline this onboarding subscription application?')) return;
+    try {
+      await api.updateTenant(id, { sub_status: 'rejected' });
+      alert('Onboarding application declined.');
+      loadData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleSlaFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setNewSlaFile({
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        dataUrl: reader.result as string
+      });
+      setSlaFileName(file.name);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleUploadSla = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedApprovalTenant || !newSlaFile) return;
+    setSlaUploadLoading(true);
+    try {
+      await api.uploadDocument({
+        name: slaFileName || newSlaFile.name,
+        category: 'business',
+        subcategory: 'sla_agreement',
+        entity_id: selectedApprovalTenant.id,
+        entity_name: selectedApprovalTenant.name,
+        file_type: newSlaFile.type,
+        file_size: newSlaFile.size,
+        file_data: newSlaFile.dataUrl,
+        notes: slaFileNotes || 'Uploaded by System Owner (Super Admin)'
+      });
+      setSlaFileName('');
+      setSlaFileNotes('');
+      setNewSlaFile(null);
+      alert('Document stored successfully for tenant!');
+      loadApprovalDocs(selectedApprovalTenant.id);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSlaUploadLoading(false);
+    }
   };
 
   const addTask = (e: React.FormEvent) => {
@@ -247,6 +354,7 @@ export default function SuperAdminHub() {
       <div style={{ display: 'flex', gap: 32, borderBottom: '1px solid var(--border)', marginBottom: 24 }}>
         <TabBtn active={activeTab === 'tenants'} onClick={() => setActiveTab('tenants')} icon={<Globe size={16} />} label="Tenant Management" />
         <TabBtn active={activeTab === 'billing'} onClick={() => setActiveTab('billing')} icon={<DollarSign size={16} />} label="Billing & Subscriptions" />
+        <TabBtn active={activeTab === 'approvals'} onClick={() => { setActiveTab('approvals'); setSelectedApprovalTenant(null); }} icon={<UserCheck size={16} />} label="Approvals & Onboarding Docs" />
         <TabBtn active={activeTab === 'geo'} onClick={() => setActiveTab('geo')} icon={<MapIcon size={16} />} label="Geo-Security Tracking" />
         <TabBtn active={activeTab === 'finance'} onClick={() => setActiveTab('finance')} icon={<BarChart3 size={16} />} label="System P&L & Projections" />
         <TabBtn active={activeTab === 'tasks'} onClick={() => setActiveTab('tasks')} icon={<CheckSquare size={16} />} label="Infrastructure Tasks & Expenses" />
@@ -273,37 +381,39 @@ export default function SuperAdminHub() {
               </tr>
             </thead>
             <tbody>
-              {tenants.map(t => (
-                <tr key={t.id}>
-                  <td>
-                    <div style={{ fontWeight: 700 }}>{t.name}</div>
-                    <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{t.email}</div>
-                  </td>
-                  <td><code style={{ background: 'var(--bg-secondary)', padding: '2px 6px', borderRadius: 4 }}>{t.slug}</code></td>
-                  <td>{t.plan_name}</td>
-                  <td>
-                    <div style={{ fontSize: 12 }}>{t.user_count} Staff</div>
-                    <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>{t.loan_count} Loans</div>
-                  </td>
-                  <td>
-                    <span className={`badge badge-${t.sub_status === 'active' ? 'success' : t.sub_status === 'overdue' ? 'warning' : 'danger'}`}>
-                      {t.sub_status.toUpperCase()}
-                    </span>
-                  </td>
-                  <td style={{ textAlign: 'right' }}>
-                    <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
-                      <button className="btn btn-icon-sm" title="View Console"><ExternalLink size={14} /></button>
-                      <button 
-                        className={`btn btn-icon-sm ${t.sub_status === 'locked' ? 'text-success' : 'text-danger'}`} 
-                        onClick={() => toggleLock(t)}
-                        title={t.sub_status === 'locked' ? 'Unlock Tenant' : 'Lock Tenant'}
-                      >
-                        {t.sub_status === 'locked' ? <Unlock size={14} /> : <Lock size={14} />}
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+              {tenants
+                .filter(t => !search || t.name.toLowerCase().includes(search.toLowerCase()) || t.slug.toLowerCase().includes(search.toLowerCase()) || t.email.toLowerCase().includes(search.toLowerCase()))
+                .map(t => (
+                  <tr key={t.id}>
+                    <td>
+                      <div style={{ fontWeight: 700 }}>{t.name}</div>
+                      <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{t.email}</div>
+                    </td>
+                    <td><code style={{ background: 'var(--bg-secondary)', padding: '2px 6px', borderRadius: 4 }}>{t.slug}</code></td>
+                    <td>{t.plan_name}</td>
+                    <td>
+                      <div style={{ fontSize: 12 }}>{t.user_count || 1} Staff</div>
+                      <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>{t.loan_count || 0} Loans</div>
+                    </td>
+                    <td>
+                      <span className={`badge badge-${t.sub_status === 'active' ? 'success' : (t.sub_status === 'pending_approval' || t.sub_status === 'overdue') ? 'warning' : 'danger'}`}>
+                        {t.sub_status.toUpperCase()}
+                      </span>
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+                        <button className="btn btn-icon-sm" title="View Console"><ExternalLink size={14} /></button>
+                        <button 
+                          className={`btn btn-icon-sm ${t.sub_status === 'locked' ? 'text-success' : 'text-danger'}`} 
+                          onClick={() => toggleLock(t)}
+                          title={t.sub_status === 'locked' ? 'Unlock Tenant' : 'Lock Tenant'}
+                        >
+                          {t.sub_status === 'locked' ? <Unlock size={14} /> : <Lock size={14} />}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
@@ -334,42 +444,304 @@ export default function SuperAdminHub() {
               </tr>
             </thead>
             <tbody>
-              {tenants.map(t => (
-                <tr key={t.id}>
-                  <td>
-                    <div style={{ fontWeight: 700 }}>{t.name}</div>
-                    <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Slug: {t.slug}</div>
-                  </td>
-                  <td><span className="badge badge-active">{t.plan_name}</span></td>
-                  <td><strong style={{ color: 'var(--text-primary)' }}>{fmt.currency(t.base_billing || t.billing_amount, 'UGX')}</strong></td>
-                  <td>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                      {(!t.addons || t.addons.length === 0) ? (
-                        <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>No additional services</span>
-                      ) : (
-                        t.addons.map((addon: string, i: number) => (
-                          <div key={i} style={{ fontSize: 11, background: 'var(--bg-secondary)', padding: '4px 8px', borderRadius: 4, display: 'inline-flex', width: 'fit-content', border: '1px solid var(--border)' }}>
-                            {addon}
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </td>
-                  <td><strong style={{ fontSize: 15, color: 'var(--green)', fontWeight: 900 }}>{fmt.currency(t.billing_amount, 'UGX')}</strong></td>
-                  <td>
-                    <span className={`badge badge-${t.sub_status === 'active' ? 'success' : t.sub_status === 'overdue' ? 'warning' : 'danger'}`}>
-                      {t.sub_status.toUpperCase()}
-                    </span>
-                  </td>
-                  <td style={{ textAlign: 'right' }}>
-                    <button className="btn btn-secondary" style={{ fontSize: 12, padding: '6px 12px' }} onClick={() => openBillingEditor(t)}>
-                      <Settings size={14} /> Adjust Billing & Services
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {tenants
+                .filter(t => !search || t.name.toLowerCase().includes(search.toLowerCase()) || t.slug.toLowerCase().includes(search.toLowerCase()) || t.email.toLowerCase().includes(search.toLowerCase()))
+                .map(t => (
+                  <tr key={t.id}>
+                    <td>
+                      <div style={{ fontWeight: 700 }}>{t.name}</div>
+                      <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Slug: {t.slug}</div>
+                    </td>
+                    <td><span className="badge badge-active">{t.plan_name}</span></td>
+                    <td><strong style={{ color: 'var(--text-primary)' }}>{fmt.currency(t.base_billing || t.billing_amount, 'UGX')}</strong></td>
+                    <td>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                        {(!t.addons || t.addons.length === 0) ? (
+                          <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>No additional services</span>
+                        ) : (
+                          t.addons.map((addon: string, i: number) => (
+                            <div key={i} style={{ fontSize: 11, background: 'var(--bg-secondary)', padding: '4px 8px', borderRadius: 4, display: 'inline-flex', width: 'fit-content', border: '1px solid var(--border)' }}>
+                              {addon}
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </td>
+                    <td><strong style={{ fontSize: 15, color: 'var(--green)', fontWeight: 900 }}>{fmt.currency(t.billing_amount, 'UGX')}</strong></td>
+                    <td>
+                      <span className={`badge badge-${t.sub_status === 'active' ? 'success' : (t.sub_status === 'pending_approval' || t.sub_status === 'overdue') ? 'warning' : 'danger'}`}>
+                        {t.sub_status.toUpperCase()}
+                      </span>
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      <button className="btn btn-secondary" style={{ fontSize: 12, padding: '6px 12px' }} onClick={() => openBillingEditor(t)}>
+                        <Settings size={14} /> Adjust Billing & Services
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* ── TAB CONTENT: APPROVALS & ONBOARDING DOCUMENTS ───── */}
+      {activeTab === 'approvals' && (
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 24 }}>
+          {/* Left Panel: Tenant Applications */}
+          <div className="card" style={{ padding: 0, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ padding: 20, borderBottom: '1px solid var(--border)' }}>
+              <h3 style={{ fontSize: 16, fontWeight: 800, margin: '0 0 12px 0' }}>Institutional Subscriptions Review</h3>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <input
+                  className="form-control"
+                  style={{ fontSize: 12 }}
+                  placeholder="Search prospective tenants..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                />
+              </div>
+            </div>
+            
+            <div style={{ maxHeight: 600, overflowY: 'auto' }}>
+              <table className="table" style={{ margin: 0 }}>
+                <thead>
+                  <tr>
+                    <th>Tenant Details</th>
+                    <th>Plan / Location</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tenants
+                    .filter(t => !search || t.name.toLowerCase().includes(search.toLowerCase()) || t.slug.toLowerCase().includes(search.toLowerCase()) || t.email.toLowerCase().includes(search.toLowerCase()))
+                    .map(t => (
+                      <tr 
+                        key={t.id} 
+                        style={{ 
+                          cursor: 'pointer', 
+                          background: selectedApprovalTenant?.id === t.id ? 'var(--bg-hover)' : 'transparent' 
+                        }}
+                        onClick={() => selectApprovalTenant(t)}
+                      >
+                        <td>
+                          <div style={{ fontWeight: 700, fontSize: 13 }}>{t.name}</div>
+                          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{t.email}</div>
+                          <div style={{ fontSize: 10, color: 'var(--accent)', fontFamily: 'monospace', marginTop: 2 }}>{t.slug}.smos.io</div>
+                        </td>
+                        <td>
+                          <div style={{ fontSize: 12, fontWeight: 600 }}>{t.plan_name}</div>
+                          <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>{t.country}</div>
+                        </td>
+                        <td>
+                          <span className={`badge badge-${t.sub_status === 'active' ? 'success' : t.sub_status === 'pending_approval' ? 'warning' : 'danger'}`} style={{ fontSize: 10 }}>
+                            {t.sub_status.toUpperCase()}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Right Panel: Detailed Review Desk */}
+          <div className="card" style={{ padding: 24 }}>
+            {selectedApprovalTenant ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                {/* Header */}
+                <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 16 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+                    <h3 style={{ fontSize: 18, fontWeight: 900, margin: 0 }}>{selectedApprovalTenant.name}</h3>
+                    <span className={`badge badge-${selectedApprovalTenant.sub_status === 'active' ? 'success' : selectedApprovalTenant.sub_status === 'pending_approval' ? 'warning' : 'danger'}`}>
+                      {selectedApprovalTenant.sub_status.toUpperCase()}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>
+                    Access Subdomain: <code style={{ color: 'var(--accent)' }}>{selectedApprovalTenant.slug}.smos.io</code>
+                  </div>
+                </div>
+
+                {/* Subscription Details & Payments */}
+                <div>
+                  <h4 style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 12 }}>Subscription Billing & Settle Status</h4>
+                  <div style={{ background: 'var(--bg-secondary)', padding: 16, borderRadius: 10, border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Subscription Plan Tier:</span>
+                      <strong style={{ color: 'var(--text-primary)' }}>{selectedApprovalTenant.plan_name} Tier</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Billing Frequency Rate:</span>
+                      <strong style={{ color: 'var(--green)' }}>UGX {selectedApprovalTenant.billing_amount ? selectedApprovalTenant.billing_amount.toLocaleString() : '300,000'} / mo</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Checkout Gateway Link:</span>
+                      <a href={selectedApprovalTenant.payment_link} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'underline', fontSize: 11, wordBreak: 'break-all' }}>
+                        {selectedApprovalTenant.payment_link || 'Link not generated'}
+                      </a>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, borderTop: '1px solid var(--border)', paddingTop: 10, marginTop: 4 }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Invoice Payment Status:</span>
+                      <span className={`badge badge-${selectedApprovalTenant.payment_status === 'paid' ? 'success' : 'danger'}`} style={{ fontSize: 10 }}>
+                        {selectedApprovalTenant.payment_status?.toUpperCase() || 'UNPAID'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Tenant Uploaded Documents */}
+                <div>
+                  <h4 style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 12 }}>Corporate Verification Documents</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {approvalDocs.filter(d => d.subcategory === 'onboarding_verification').length === 0 ? (
+                      <div style={{ fontSize: 12, color: 'var(--text-muted)', padding: '12px 16px', background: 'var(--bg-secondary)', borderRadius: 8, textAlign: 'center', border: '1px solid var(--border)' }}>
+                        No onboarding documents uploaded by the tenant.
+                      </div>
+                    ) : (
+                      approvalDocs.filter(d => d.subcategory === 'onboarding_verification').map(doc => (
+                        <div key={doc.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'var(--bg-secondary)', borderRadius: 8, border: '1px solid var(--border)' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <FileText size={16} color="var(--accent)" />
+                            <div>
+                              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-primary)' }}>{doc.name}</div>
+                              <div style={{ fontSize: 9, color: 'var(--text-muted)' }}>{(doc.file_size / 1024).toFixed(1)} KB · {doc.file_type}</div>
+                            </div>
+                          </div>
+                          {doc.file_data ? (
+                            <a href={doc.file_data} download={doc.name} style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, textDecoration: 'underline' }}>Download</a>
+                          ) : (
+                            <span style={{ fontSize: 10, color: 'var(--text-muted)' }}>No source data</span>
+                          )}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                {/* Store Document for Tenant */}
+                <div style={{ borderTop: '1px solid var(--border)', paddingTop: 20 }}>
+                  <h4 style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 12 }}>Store Official Document for Tenant</h4>
+                  
+                  <form onSubmit={handleUploadSla} style={{ display: 'flex', flexDirection: 'column', gap: 12, background: 'var(--bg-secondary)', padding: 16, borderRadius: 10, border: '1px solid var(--border)' }}>
+                    <div style={{ position: 'relative', background: '#1f2937', padding: '14px 18px', borderRadius: 8, border: '1px dashed #4b5563', textAlign: 'center' }}>
+                      <input type="file" onChange={handleSlaFileChange} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} />
+                      <Upload size={18} color="var(--accent)" style={{ marginBottom: 4 }} />
+                      <div style={{ fontSize: 11, color: 'var(--text-primary)', fontWeight: 700 }}>{slaFileName ? slaFileName : 'Select official SLA / Contract PDF'}</div>
+                      <div style={{ fontSize: 9, color: 'var(--text-muted)' }}>PDF or image up to 10MB</div>
+                    </div>
+                    
+                    <div className="form-group" style={{ margin: 0 }}>
+                      <input 
+                        className="form-control"
+                        style={{ fontSize: 12, height: 32 }}
+                        placeholder="Document Name (e.g. victoria_sacco_sla_2026.pdf)..."
+                        value={slaFileName}
+                        onChange={e => setSlaFileName(e.target.value)}
+                        required
+                      />
+                    </div>
+                    
+                    <div className="form-group" style={{ margin: 0 }}>
+                      <input 
+                        className="form-control"
+                        style={{ fontSize: 12, height: 32 }}
+                        placeholder="Optional description/notes..."
+                        value={slaFileNotes}
+                        onChange={e => setSlaFileNotes(e.target.value)}
+                      />
+                    </div>
+
+                    <button type="submit" className="btn btn-primary btn-sm" disabled={slaUploadLoading || !newSlaFile} style={{ width: '100%', justifyContent: 'center' }}>
+                      {slaUploadLoading ? 'Uploading...' : 'Upload Official SLA Document'}
+                    </button>
+                  </form>
+                </div>
+
+                {/* List Stored Official SLA/Documents for Tenant */}
+                <div>
+                  <h4 style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Stored Official SLAs & System Files</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {approvalDocs.filter(d => d.subcategory === 'sla_agreement').length === 0 ? (
+                      <div style={{ fontSize: 11, color: 'var(--text-muted)', padding: 10, background: 'var(--bg-secondary)', borderRadius: 8, textAlign: 'center' }}>
+                        No official documents uploaded yet by System Owner.
+                      </div>
+                    ) : (
+                      approvalDocs.filter(d => d.subcategory === 'sla_agreement').map(doc => (
+                        <div key={doc.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: 'var(--bg-secondary)', borderRadius: 8, border: '1px solid var(--border)' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <Shield size={14} color="var(--green)" />
+                            <div>
+                              <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-primary)' }}>{doc.name}</div>
+                              <div style={{ fontSize: 9, color: 'var(--text-muted)' }}>{(doc.file_size / 1024).toFixed(1)} KB · Uploaded by: {doc.uploaded_by}</div>
+                            </div>
+                          </div>
+                          {doc.file_data ? (
+                            <a href={doc.file_data} download={doc.name} style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 700, textDecoration: 'underline' }}>Download</a>
+                          ) : (
+                            <span style={{ fontSize: 10, color: 'var(--text-muted)' }}>No source data</span>
+                          )}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                {/* Governance Controls */}
+                <div style={{ display: 'flex', gap: 10, borderTop: '1px solid var(--border)', paddingTop: 20, marginTop: 10 }}>
+                  {selectedApprovalTenant.sub_status === 'pending_approval' && (
+                    <>
+                      <button 
+                        type="button" 
+                        className="btn btn-primary" 
+                        style={{ flex: 1, background: 'var(--green)', color: '#000', fontWeight: 800, justifyContent: 'center' }}
+                        onClick={() => handleApproveTenant(selectedApprovalTenant.id)}
+                      >
+                        Approve & Provision Node
+                      </button>
+                      <button 
+                        type="button" 
+                        className="btn btn-danger" 
+                        style={{ flex: 1, justifyContent: 'center' }}
+                        onClick={() => handleRejectTenant(selectedApprovalTenant.id)}
+                      >
+                        Decline Application
+                      </button>
+                    </>
+                  )}
+                  
+                  {selectedApprovalTenant.sub_status === 'active' && (
+                    <button 
+                      type="button" 
+                      className="btn btn-danger" 
+                      style={{ width: '100%', justifyContent: 'center' }}
+                      onClick={() => toggleLock(selectedApprovalTenant)}
+                    >
+                      Lock Tenant Access
+                    </button>
+                  )}
+
+                  {selectedApprovalTenant.sub_status === 'locked' && (
+                    <button 
+                      type="button" 
+                      className="btn btn-primary" 
+                      style={{ width: '100%', justifyContent: 'center', background: 'var(--green)', color: '#000' }}
+                      onClick={() => toggleLock(selectedApprovalTenant)}
+                    >
+                      Unlock Tenant Access
+                    </button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', minHeight: 350 }}>
+                <div style={{ textAlign: 'center' }}>
+                  <UserCheck size={40} style={{ opacity: 0.3, marginBottom: 12 }} />
+                  <h4>Select a Tenant Application to Review</h4>
+                  <p style={{ fontSize: 12 }}>Check documents, billing invoice payment, and govern instance access.</p>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       )}
 

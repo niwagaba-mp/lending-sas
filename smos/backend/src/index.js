@@ -51,6 +51,8 @@ app.use('/api', rateLimit({ windowMs: 1 * 60 * 1000, max: 300 }));
 
 // ─── Routes ────────────────────────────────────────────────────
 app.use('/api/auth',          require('./modules/auth/auth.routes'));
+app.use('/api/tenants',       require('./modules/superadmin/superadmin.routes'));
+app.use('/api/documents',     require('./modules/documents/documents.routes'));
 app.use('/api/branches',      require('./modules/branches/branches.routes'));
 app.use('/api/staff',         require('./modules/staff/staff.routes'));
 app.use('/api/clients',       require('./modules/clients/clients.routes'));

@@ -3,7 +3,7 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Users, UserCheck, CreditCard, DollarSign,
   BarChart3, AlertTriangle, Scale, Bell, FileText,
-  Building2, TrendingUp, Clock, ChevronRight, LogOut, Shield, AlertCircle, MapPin, Database
+  Building2, TrendingUp, Clock, ChevronRight, LogOut, Shield, AlertCircle, MapPin, Database, FileArchive
 } from 'lucide-react';
 import { useApp } from '../../store/AppContext';
 import api from '../../services/api';
@@ -28,6 +28,7 @@ const nav = [
     { to: '/admin/reports?type=never_paid', icon: AlertTriangle,  label: 'Never Paid / High Risk', indented: true },
     { to: '/admin/reports?type=disbursement', icon: Users,          label: 'Periodic Disbursement (Per Staff)', indented: true },
     { to: '/admin/reports?type=expenses', icon: BarChart3,      label: 'Monthly Expense Analysis', indented: true },
+    { to: '/vault',     icon: FileArchive,    label: 'Document Vault' },
   ]},
   { section: 'Infrastructure', items: [
     { to: '/superadmin',    icon: Shield,         label: 'System Owner Hub' },
@@ -37,6 +38,7 @@ const nav = [
     { to: '/executive/console', icon: Building2,      label: 'Multi-Branch Analytics' },
     { to: '/branches',          icon: Building2,      label: 'Manage Branches' },
     { to: '/reports',           icon: FileText,       label: 'Executive Reports' },
+    { to: '/vault',     icon: FileArchive,    label: 'Document Vault' },
   ]},
   { section: 'People', items: [
     { to: '/branches',     icon: Building2,  label: 'Branches' },
